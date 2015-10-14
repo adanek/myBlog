@@ -17,6 +17,7 @@ $articles = $srv->get_all();
         <td>Autor</td>
         <td>Keywords</td>
         <td>Text</td>
+        <th>Edit</th>
         <th>Delete</th>
     </tr>
     </thead>
@@ -42,7 +43,9 @@ $articles = $srv->get_all();
                     }
                 }
                 ?> </td>
+
             <td> <?php echo $art->get_text();?></td>
+            <td><a href="/articles/edit.php?id=<?php echo($art->get_id())?>">Edit</a></td>
             <td><a href="javascript:deleteArticle('<?php echo $art->get_id(); ?>')">Delete</a></td>
         </tr>
         <?php

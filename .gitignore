@@ -1,4 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
+/myBlog.iml
 .project
 app/web.config

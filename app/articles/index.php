@@ -6,6 +6,7 @@
  * Time: 21:09
  */
 $page_content = '../views/articles/index.php';
-include('../_layout.php');
+include_once('../_layout.php');
+
 
 

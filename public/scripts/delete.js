@@ -8,7 +8,7 @@ function deleteArticle (id){
             console.log('Article deleted');
         }
 
-        window.location = "/articles/create.php";
+        //window.location = "/articles/create.php";
     };
 
     req.open("DELETE", "/articles/delete.php", true);

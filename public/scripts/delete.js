@@ -7,8 +7,8 @@ function deleteArticle (id){
         if(req.readyState == 4 && req.status== 200){
             console.log('Article deleted');
         }
-
-        //window.location = "/articles/create.php";
+        console.log(req.status);
+        window.location = "/articles/index.php";
     };
 
     req.open("DELETE", "/articles/delete.php", true);

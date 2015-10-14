@@ -9,7 +9,7 @@ class Article {
 	private $creation_date;
 	private $change_date;
 	private $text;
-	
+
 	public function __construct($id, $title, $author, $keywords, $text){
 		$this->id            = $id;
 		$this->title         = $title;

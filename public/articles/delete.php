@@ -4,18 +4,16 @@ $request = explode("/", substr(@$_SERVER['PATH_INFO'], 1));
 
 if($method == 'DELETE'){
 
-   parse_str(file_get_contents("php://input"), $post_vars);
-   
-/*   while($art = current($articles)){
-   	$id = $art->get_id();
-   	if($id == $post_vars["id"]){
-   		unset($articles[$id]);
-   		break;
-   	}
-   	next($articles);
-   }
-   */
-   
-    echo('Article Nr. ' .$post_vars["id"] .' deleted');
+    include_once('../../app/models/article.php');
+    include_once('../../app/services/ArticleService.php');
+
+    parse_str(file_get_contents("php://input"), $post_vars);
+
+    if(isset($post_vars['id'])){
+        $id = $post_vars['id'];
+
+        $res = ArticleService::get_instance()->remove_article($id);
+        echo($res);
+    }
 }
 ?>

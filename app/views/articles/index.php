@@ -2,12 +2,12 @@
 <!-- BEGIN TEST -->
 <?php
 include_once('../../app/models/article.php');
-include_once('../../app/services/article_service.php');
+include_once('../../app/services/ArticleService.php');
 
-$srv = new article_service();
+$srv = ArticleService::get_instance();
 $articles = $srv->get_all();
-
 ?>
+<a href="/articles/create.php">New</a>
 <table>
     <thead>
     <tr>
@@ -43,7 +43,7 @@ $articles = $srv->get_all();
                 }
                 ?> </td>
             <td> <?php echo $art->get_text();?></td>
-            <td><a href="javascript:deleteArticle(<?php echo $art->get_id(); ?>)">Delete</a></td>
+            <td><a href="javascript:deleteArticle('<?php echo $art->get_id(); ?>')">Delete</a></td>
         </tr>
         <?php
         next($articles);
@@ -53,7 +53,7 @@ $articles = $srv->get_all();
 </table>
 <!-- END TEST -->
 
-<script src="../../../public/scripts/delete.js"></script>
+<script src="../../../scripts/delete.js"></script>
 
 
 

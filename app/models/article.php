@@ -70,6 +70,24 @@ class Article {
 	public function set_text($param1){
 		$this->text = $param1;
 	}
+	
+	public static function compare_date_asc($a, $b) {
+		$date1 = $a->get_creation_date();
+		$date2 = $b->get_creation_date();
+		if ($date1 == $date2) {
+			return 0;
+		}
+		return ($date1 < $date2) ? - 1 : 1;
+	}
+	
+	public static function compare_date_dsc($a, $b) {
+		$date1 = $a->get_creation_date();
+		$date2 = $b->get_creation_date();
+		if ($date1 == $date2) {
+			return 0;
+		}
+		return ($date1 > $date2) ? - 1 : 1;
+	}
 }
 
 ?>

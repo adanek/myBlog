@@ -7,6 +7,18 @@
 
     <link rel="stylesheet" href="/styles/main.css" />
 </head>
+
+<?php 
+	#Session starten
+	session_start();
+	
+	#redirect zum Login Form
+	if(!isset($_SESSION['username'])){
+		header('Location: '.'/login.php' );
+		die();
+	}
+?>
+
 <body>
 
 <header>

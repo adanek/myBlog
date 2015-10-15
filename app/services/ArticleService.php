@@ -30,7 +30,7 @@ class ArticleService
         $u = file_get_contents($this->file);
         $this->articles = unserialize($u);
 
-//        $this->init();
+        //$this->init();
     }
 
     function __destruct()
@@ -50,6 +50,10 @@ class ArticleService
      */
     public function get_all()
     {
+    	
+    	#absteigend sortieren
+    	uasort($this->articles, 'Article::compare_date_dsc');
+    	
         return $this->articles;
     }
 
@@ -102,7 +106,7 @@ class ArticleService
 
         return $res;
     }
-
+     
     private function init()
     {
         $this->articles = array();

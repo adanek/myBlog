@@ -8,7 +8,7 @@ $articles = $srv->get_all();
 <a href="/articles/create.php">New</a>
 
 <?php
-while ( $art = current( $articles ) ) { ?>
+while ( list($art_key, $art) = each( $articles ) ) { ?>
 
     <article>
         <header>
@@ -24,16 +24,12 @@ while ( $art = current( $articles ) ) { ?>
                 <?php echo($art->get_author());?>
                 <small>
                 <?php
-                    $j = 0;
-                    $key = $art->get_keywords();
-                    $max = count ($key);
-                    while ($j < $max){
-                        $word = $key[$j];
+                    $keywords = $art->get_keywords();
+                    while(list($key, $val) = each($keywords)){
                 ?>
-                        <span class="label"><?php echo($word);?></span>
+                        <span class="label"><?php echo($val);?></span>
 
                 <?php
-                        $j++;
                     }
                 ?>
                 </small>
@@ -46,6 +42,6 @@ while ( $art = current( $articles ) ) { ?>
 
     </article>
 
-    <?php next($articles);} ?>
+    <?php } ?>
 
 <script src="../../../scripts/delete.js"></script>

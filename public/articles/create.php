@@ -3,6 +3,8 @@
 // Check if post or get
 $method = $_SERVER['REQUEST_METHOD'];
 
+include_once('../../app/services/session.php');
+
 // POST - Save article
 if($method == "POST"){
 
@@ -13,7 +15,7 @@ if($method == "POST"){
     $article_keywords = isset($_POST['keywords']) ? preg_split("/[\s]+/", $_POST['keywords']) : null;
     $article_content = isset($_POST['content']) ? $_POST['content'] : null;
 
-    $article = new Article("", $article_title, "m.muster", $article_keywords, $article_content);
+    $article = new Article("", $article_title, $_SESSION['username'], $article_keywords, $article_content);
 
     $articles = ArticleService::get_instance();
     $articles->add_article($article);
@@ -32,7 +34,7 @@ if($method == "GET"){
     $id = '';
     $title = '';
     $keywords = '';
-    $author = 'm.muster';
+    $author = $_SESSION['username'];
     $content = '';
     $date = 'October 15, 2015';
 

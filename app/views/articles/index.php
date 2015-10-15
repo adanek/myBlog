@@ -12,7 +12,7 @@ while ( list($art_key, $art) = each( $articles ) ) { ?>
 
     <article>
         <header>
-            <span><?php echo(date('F d, Y',$art->get_creation_date()));?></span>
+            <span class="article-date"><?php echo(date('F d, Y',$art->get_creation_date()));?></span>
             <div class="title">
                 <?php echo($art->get_title());?>
                 <small>

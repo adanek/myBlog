@@ -1,4 +1,5 @@
 <form action="/login.php" method="POST">
-<input type="text" name="username" />
+<label for="username">Username: </label>
+<input type="text" id="username" name="username" />
 <input type="submit" />
 </form>

@@ -4,20 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myBlog<?php if(isset($page_title)){ echo(" - $page_title");} ?></title>
-
+	<link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/styles/main.css" />
 </head>
-
-<?php 
-	#Session starten
-	session_start();
-	
-	#redirect zum Login Form
-	if(!isset($_SESSION['username'])){
-		header('Location: '.'/login.php' );
-		die();
-	}
-?>
 
 <body>
 

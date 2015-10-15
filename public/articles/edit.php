@@ -1,5 +1,6 @@
 <?php
 
+include_once('../../app/services/session.php');
 include_once('../../app/models/article.php');
 include_once('../../app/services/ArticleService.php');
 

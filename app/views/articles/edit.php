@@ -9,9 +9,9 @@
     $date string;
 -->
 
-<form action="<?php echo($form_action); ?>" method="post">
+<form action="<?php echo($form_action); ?>" method="post" id="article-form">
     <div class="header">
-        <h3><?php echo($author);?> <small><?php echo($date);?></small></h3>
+        <h3><?php echo($author);?> writes on <small><?php echo($date);?></small></h3>
         <input type="hidden" name="id" value="<?php echo($id);?>">
     </div>
 
@@ -25,9 +25,9 @@
     </div>
     <div class="form-group">
         <label for="article_content">Content:</label>
-        <textarea id="article_content" name="content" rows="5" class="form-control"><?php echo($content);?></textarea>
+        <textarea id="article_content" name="content" rows="10" class="form-control"><?php echo($content);?></textarea>
     </div>
     <div class="form-group">
-        <input type="submit">
+        <input type="submit" class="form-control">
     </div>
 </form>

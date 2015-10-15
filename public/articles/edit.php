@@ -26,15 +26,26 @@ if($method == "POST"){
 // GET - Show form
 if($method == "GET"){
 
-    $page_title = "Edit Article";
-    $form_action = '/articles/edit.php';
+    $id = $_GET['id'];
 
-    $title = 'First Blog entry';
-    $keywords = 'css js awesome';
+    $srv = ArticleService::get_instance();
+    $article = $srv->get_article($id);
+
+    if(is_null($article)){
+        header('HTTP/1.0 404 Not Found');
+        echo "<h1>Error 404 Not Found</h1>";
+        echo "The page that you have requested could not be found.";
+        exit();
+    }
+
+    $title = $article->get_title();
+    $keywords = implode(' ', $article->get_keywords());
     $author = 'm.muster';
-    $content = 'This is some content.';
+    $content = $article->get_text();
     $date = 'October 15, 2015';
 
+    $page_title = "Edit Article";
+    $form_action = '/articles/edit.php';
     $page_content = '../../app/views/articles/edit.php';
 
     include_once('../../app/views/_layout.php');

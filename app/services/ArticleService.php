@@ -62,7 +62,7 @@ class ArticleService
 
         $res = null;
 
-        if(in_array($id, $this->articles)){
+        if(isset($this->articles[$id])){
             $res = $this->articles[$id];
         }
 

@@ -12,7 +12,7 @@ while ( $art = current( $articles ) ) { ?>
 
     <article>
         <header>
-            <span><?php echo($art->get_creation_date());?></span>
+            <span><?php echo(date('F d, Y',$art->get_creation_date()));?></span>
             <div class="title">
                 <?php echo($art->get_title());?>
                 <small>

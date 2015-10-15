@@ -49,6 +49,13 @@ article{
 .author {
     font-size: 1.5em;
 }
+
+.label {
+    display: inline-block;
+    padding: 0.2em 1em;
+    margin: 0 0.2em;
+    background-color: lightcyan;
+}
 footer {
     position: absolute;
     bottom: 0;

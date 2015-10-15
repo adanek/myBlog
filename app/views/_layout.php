@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
-<?php include($page_content);?>
+
+<header>
+    <a href="/">Welcome to myBlog.com</a>
+</header>
+
+<div class="content">
+    <?php include($page_content);?>
+</div>
+
+<footer>
+    <div class="footer">
+        <p class="credit">Brought to you by Team 1 Webdesign</p>
+    </div>
+</footer>
+
 </body>
 </html>

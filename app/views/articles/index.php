@@ -1,5 +1,3 @@
-
-<!-- BEGIN TEST -->
 <?php
 include_once('../../app/models/article.php');
 include_once('../../app/services/ArticleService.php');
@@ -8,55 +6,46 @@ $srv = ArticleService::get_instance();
 $articles = $srv->get_all();
 ?>
 <a href="/articles/create.php">New</a>
-<table>
-    <thead>
-    <tr>
-        <td></td>
-        <td>ID</td>
-        <td>Titel</td>
-        <td>Autor</td>
-        <td>Keywords</td>
-        <td>Text</td>
-        <th>Edit</th>
-        <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php
-    while ( $art = current( $articles ) ) {
-        ?>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td> <?php echo $art->get_id(); ?>    </td>
-            <td> <?php echo $art->get_title();?>  </td>
-            <td> <?php echo $art->get_author();?> </td>
-            <td> <?php
-                $j = 0;
-                $key = $art->get_keywords();
-                $max = count ($key);
-                while ($j < $max){
-                    $word = $key[$j];
-                    echo $word;
-                    $j++;
-                    if($j < $max){
-                        echo ', ';
-                    }
-                }
-                ?> </td>
 
-            <td> <?php echo $art->get_text();?></td>
-            <td><a href="/articles/edit.php?id=<?php echo($art->get_id())?>">Edit</a></td>
-            <td><a href="javascript:deleteArticle('<?php echo $art->get_id(); ?>')">Delete</a></td>
-        </tr>
-        <?php
-        next($articles);
-    }
-    ?>
-    </tbody>
-</table>
-<!-- END TEST -->
+<?php
+while ( $art = current( $articles ) ) { ?>
+
+    <article>
+        <header>
+            <span><?php echo($art->get_creation_date());?></span>
+            <div class="title">
+                <?php echo($art->get_title());?>
+                <small>
+                    <a href="/articles/edit.php?id=<?php echo($art->get_id())?>">Edit</a>
+                    <a href="javascript:deleteArticle('<?php echo $art->get_id(); ?>')">Delete</a>
+                </small>
+            </div>
+            <div class="author">
+                <?php echo($art->get_author());?>
+                <small>
+                <?php
+                    $j = 0;
+                    $key = $art->get_keywords();
+                    $max = count ($key);
+                    while ($j < $max){
+                        $word = $key[$j];
+                ?>
+                        <span class="label"><?php echo($word);?></span>
+
+                <?php
+                        $j++;
+                    }
+                ?>
+                </small>
+            </div>
+        </header>
+
+         <div class="article-body">
+        <p><?php echo($art->get_text());?></p>
+    </div>
+
+    </article>
+
+    <?php next($articles);} ?>
 
 <script src="../../../scripts/delete.js"></script>
-
-
-

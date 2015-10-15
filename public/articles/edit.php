@@ -1,17 +1,13 @@
 <?php
 
-function debug_print($item, $key){
-    echo("$key: $item\n");
-}
+include_once('../../app/models/article.php');
+include_once('../../app/services/ArticleService.php');
 
 // Check if post or get
 $method = $_SERVER['REQUEST_METHOD'];
 
 // POST - Save article
 if($method == "POST"){
-
-    include_once('../../app/models/article.php');
-    include_once('../../app/services/ArticleService.php');
 
     $article_title = isset($_POST['title']) ? $_POST['title'] : null;
     $article_keywords = isset($_POST['keywords']) ? preg_split("/[\s]+/", $_POST['keywords']) : null;
@@ -32,6 +28,13 @@ if($method == "GET"){
 
     $page_title = "Edit Article";
     $form_action = '/articles/edit.php';
+
+    $title = 'First Blog entry';
+    $keywords = 'css js awesome';
+    $author = 'm.muster';
+    $content = 'This is some content.';
+    $date = 'October 15, 2015';
+
     $page_content = '../../app/views/articles/edit.php';
 
     include_once('../../app/views/_layout.php');

@@ -1,9 +1,5 @@
 <?php
 
-function debug_print($item, $key){
-    echo("$key: $item\n");
-}
-
 // Check if post or get
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -32,6 +28,13 @@ if($method == "GET"){
 
     $page_title = "New Article";
     $form_action = '/articles/create.php';
+
+    $title = '';
+    $keywords = '';
+    $author = 'm.muster';
+    $content = '';
+    $date = 'October 15, 2015';
+
     $page_content = '../../app/views/articles/edit.php';
 
     include_once('../../app/views/_layout.php');

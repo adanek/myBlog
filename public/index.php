@@ -6,6 +6,8 @@
  * Time: 20:43
  */
  
+include_once('../app/services/session.php');
+
 header('Location: '.'/articles/index.php' );
 die();
 ?>

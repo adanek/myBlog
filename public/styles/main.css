@@ -8,6 +8,7 @@ html, body, header, nav, aside, footer {
 html {
     position: relative;
     min-height: 100%;
+    font-family: 'Slabo 27px', serif;
 }
 
 body{
@@ -38,16 +39,26 @@ body > header a:visited{
 }
 
 article{
+	margin-top: 2em;
     border-bottom: 1px solid lightgray;
 }
 
 .title {
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bold;
 }
 
+.title small {
+	font-size:	0.40em;
+}
+
 .author {
-    font-size: 1.5em;
+    color: #258897;
+}
+
+.article-date {
+	font-size: 0.75em;
+	color: #aaa;
 }
 
 .label {
@@ -57,6 +68,33 @@ article{
     background-color: lightcyan;
     font-size: 0.5em;
 }
+
+#article-form {
+	width:	80%;
+	margin:	0 auto;
+		
+}
+
+.form-group {
+	margin-bottom:	1em;
+}
+
+.form-group label, 
+.form-group input, 
+.form-group textarea{
+	display: block;
+	width:	100%;
+}
+
+.form-control {
+	width:	100%;
+}
+
+input[type=submit] {
+	height: 	2em;
+	border-radius: 1em;	
+}
+
 footer {
     position: absolute;
     bottom: 0;

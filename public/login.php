@@ -29,8 +29,8 @@ if($method == "POST"){
 if($method == "GET"){
 
 	$page_title = "Login";
-
-	include_once('../app/views/login.php');
+	$page_content = '../app/views/login.php';
+	include_once('../app/views/_layout.php');
 }
 
 ?>

@@ -1,17 +1,17 @@
-<!--
-    expect variables:
-
-    $form_action string
-    $title : string;
-    $keywords string;
-    $author string;
-    $content string;
-    $date string;
--->
+<?php
+//    expect variables:
+//
+//    $form_action string
+//    $title : string;
+//    $keywords string;
+//    $author string;
+//    $content string;
+//    $date string;
+?>
 
 <form action="<?php echo($form_action); ?>" method="post" id="article-form">
     <div class="header">
-        <h3><?php echo($author);?> writes on <small><?php echo($date);?></small></h3>
+        <h3><?php echo($author);?> writes on <small style="white-space: nowrap"><?php echo($date);?></small></h3>
         <input type="hidden" name="id" value="<?php echo($id);?>">
     </div>
 
@@ -28,6 +28,7 @@
         <textarea id="article_content" name="content" rows="10" class="form-control"><?php echo($content);?></textarea>
     </div>
     <div class="form-group">
-        <input type="submit" class="form-control">
+        <input type="submit" class="btn" value="Save">
+        <a href="/articles/index.php" class="btn">Cancel</a>
     </div>
 </form>

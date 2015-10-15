@@ -36,7 +36,7 @@ if($method == "GET"){
     $keywords = '';
     $author = $_SESSION['username'];
     $content = '';
-    $date = 'October 15, 2015';
+    $date = date('F d, Y', time());
 
     $page_content = '../../app/views/articles/edit.php';
 

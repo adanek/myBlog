@@ -49,9 +49,9 @@ if($method == "GET"){
 
     $title = $article->get_title();
     $keywords = implode(' ', $article->get_keywords());
-    $author = 'm.muster';
+    $author = $article->get_author();
     $content = $article->get_text();
-    $date = 'October 15, 2015';
+    $date = date('F d, Y', $article->get_creation_date());
 
     $page_title = "Edit Article";
     $form_action = '/articles/edit.php';

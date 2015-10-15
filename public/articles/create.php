@@ -29,6 +29,7 @@ if($method == "GET"){
     $page_title = "New Article";
     $form_action = '/articles/create.php';
 
+    $id = '';
     $title = '';
     $keywords = '';
     $author = 'm.muster';

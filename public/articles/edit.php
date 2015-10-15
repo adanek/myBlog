@@ -9,14 +9,22 @@ $method = $_SERVER['REQUEST_METHOD'];
 // POST - Save article
 if($method == "POST"){
 
-    $article_title = isset($_POST['title']) ? $_POST['title'] : null;
-    $article_keywords = isset($_POST['keywords']) ? preg_split("/[\s]+/", $_POST['keywords']) : null;
-    $article_content = isset($_POST['content']) ? $_POST['content'] : null;
+    $id = $_POST['id'];
+    $srv = ArticleService::get_instance();
+    $article = $srv->get_article($id);
 
-    $article = new Article("", $article_title, "m.muster", $article_keywords, $article_content);
+    if(is_null($article)){
+        header('HTTP/1.0 404 Not Found');
+        echo "<h1>Error 404 Not Found</h1>";
+        echo "The page that you have requested could not be found.";
+        exit();
+    }
 
-    $articles = ArticleService::get_instance();
-    $articles->add_article($article);
+    $article->set_title($_POST['title']);
+    $article->set_keywords(preg_split("/[\s]+/", $_POST['keywords']));
+    $article->set_text($_POST['content']);
+
+    $srv->update_article($article);
 
     // Redirect to articles
     header('Location: /articles/index.php');

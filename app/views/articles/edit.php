@@ -12,6 +12,7 @@
 <form action="<?php echo($form_action); ?>" method="post">
     <div class="header">
         <h3><?php echo($author);?> <small><?php echo($date);?></small></h3>
+        <input type="hidden" name="id" value="<?php echo($id);?>">
     </div>
 
     <div class="form-group">

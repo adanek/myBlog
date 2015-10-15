@@ -69,6 +69,9 @@ class ArticleService
         return $res;
     }
 
+    public function update_article($article){
+        $this->articles[$article->get_id()] = $article;
+    }
 
     /**
      * Adds an article from the blog
@@ -79,7 +82,6 @@ class ArticleService
     {
         $id = count($this->articles) + 1;
         $new = new Article("B$id", $article->get_title(), $article->get_author(), $article->get_keywords(), $article->get_text());
-        //array_push($this->articles, $new);
         $this->articles[$new->get_id()] = $new;
     }
 

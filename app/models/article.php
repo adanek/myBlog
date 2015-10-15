@@ -42,6 +42,10 @@ class Article {
 	public function get_keywords(){
 		return $this->keywords;
 	}
+
+	public function set_keywords($kws){
+		$this->keywords = $kws;
+	}
 	
 	public function add_keyword($param1){
 		array_push($this->keywords, $param1);

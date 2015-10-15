@@ -53,6 +53,22 @@ class ArticleService
         return $this->articles;
     }
 
+    /**
+     * Returns the article with the given id if exists
+     * @param $id string the id of the article
+     * @return mixed Article the requested article or null
+     */
+    public function get_article($id){
+
+        $res = null;
+
+        if(in_array($id, $this->articles)){
+            $res = $this->articles[$id];
+        }
+
+        return $res;
+    }
+
 
     /**
      * Adds an article from the blog

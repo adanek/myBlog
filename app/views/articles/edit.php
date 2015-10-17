@@ -17,7 +17,7 @@
 
     <div class="form-group">
         <label for="article_title">Title:</label>
-        <input id="article_title" name="title" type="text" class="form-control" value="<?php echo($title);?>">
+        <input id="article_title" name="title" type="text" class="form-control" value="<?php echo($title);?>" autofocus required>
     </div>
     <div class="form-group">
         <label for="article_keywords">Keywords:</label>
@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
         <label for="article_content">Content:</label>
-        <textarea id="article_content" name="content" rows="10" class="form-control"><?php echo($content);?></textarea>
+        <textarea id="article_content" name="content" rows="10" class="form-control" required><?php echo($content);?></textarea>
     </div>
     <div class="form-group">
         <input type="submit" class="btn" value="Save">

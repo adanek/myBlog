@@ -16,6 +16,7 @@ class Article {
 		$this->author        = $author;
 		$this->keywords      = $keywords;
 		$this->creation_date = time();
+		$this->change_date = $this->creation_date;
 		$this->text          = $text;
 	}
 	

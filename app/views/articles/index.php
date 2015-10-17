@@ -42,6 +42,12 @@ while (list($art_key, $art) = each($articles)) { ?>
 
         <footer>
             <div>
+
+                <?php
+                if($art->get_creation_date() != $art->get_change_date()){ ?>
+                    <span>last modified on <?php echo(date('F d, Y', $art->get_change_date())); ?></span>
+                <?php } ?>
+
                 <a href="/articles/edit.php?id=<?php echo($art->get_id()) ?>">
                     <img class="icon icon-edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAA
                         eP4ixAAAC8ElEQVRoQ9Wa8ZVNMRCHf9sBFaADKkAFbAWogK2ArQAVoAKrAjpABagAHTjfO3feGbPJfcm7yb15OWf/2ZfkzZe
@@ -65,6 +71,7 @@ while (list($art_key, $art) = each($articles)) { ?>
                     +mEV21zOcwdS6i0NaTTfGFtuw6BI6/Y1wv/ZLKl+2xffPfBgOiO1oDQruTSLnAOyMSglQLSg7X7EbNQ8V4tIs5SolAJRD0tgbB8
                     raixT4Tv0lZNmjKVAmj2JAqJa6rwwFYuoKjo1jbzoe7VAogbmUnAgc3k61Y5HJNVTc+ltTER+Ae3S5DOrL0NoAAAAAElFTkSuQmCC">
                 </a>
+
 
             </div>
         </footer>

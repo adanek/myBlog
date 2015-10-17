@@ -131,6 +131,13 @@ article footer {
     text-align: right;
 }
 
+article footer span {
+    font-size: 0.8em;
+    color: #aaa;
+    display: inline-block;
+    margin-right: 1em;
+}
+
 .outer {
     position: absolute;
     bottom: 50%;

@@ -2,4 +2,4 @@
 .idea/
 /myBlog.iml
 .project
-app/web.config
+/public/web.config

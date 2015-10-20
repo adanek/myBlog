@@ -29,7 +29,8 @@ body > header {
     font-size: 2em;
     line-height: 2em;
     text-align: center;
-    background-color: #494e58;
+    //background-color: #494e58;
+    background: radial-gradient(circle, #1e3e4d, #102028);
     color: white;
 }
 
@@ -144,12 +145,8 @@ article footer span {
     left: 50%;
     width: 30%;
     height: 12%;
-    margin: -6% -15%;
-
+    margin: 0 -15%;
 }
-
-
-
 
 body > footer {
     position: absolute;

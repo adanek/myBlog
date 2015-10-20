@@ -12,12 +12,12 @@
 <form action="<?php echo($form_action); ?>" method="post" id="article-form">
     <div class="header">
         <h3><?php echo($author);?> writes on <small style="white-space: nowrap"><?php echo($date);?></small></h3>
-        <input type="hidden" name="id" value="<?php echo($id);?>">
+        <input type="hidden" name="id" value="<?php echo($id);?>" >
     </div>
 
     <div class="form-group">
         <label for="article_title">Title:</label>
-        <input id="article_title" name="title" type="text" class="form-control" value="<?php echo($title);?>">
+        <input id="article_title" name="title" type="text" class="form-control" value="<?php echo($title);?>" autofocus required>
     </div>
     <div class="form-group">
         <label for="article_keywords">Keywords:</label>
@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
         <label for="article_content">Content:</label>
-        <textarea id="article_content" name="content" rows="10" class="form-control"><?php echo($content);?></textarea>
+        <textarea id="article_content" name="content" rows="10" class="form-control" autofocus required><?php echo($content);?></textarea>
     </div>
     <div class="form-group">
         <input type="submit" class="btn" value="Save">

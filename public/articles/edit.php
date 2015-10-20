@@ -22,7 +22,7 @@ if($method == "POST"){
     }
 
     $article->set_title($_POST['title']);
-    $article->set_keywords(preg_split("/[\s]+/", $_POST['keywords']));
+    $article->set_keywords($_POST['keywords']);
     $article->set_text($_POST['content']);
     $article->set_change_date(time());
 

@@ -12,10 +12,11 @@ if($method == "POST"){
     include_once('../../app/services/ArticleService.php');
 
     $article_title = isset($_POST['title']) ? $_POST['title'] : null;
-    $article_keywords = isset($_POST['keywords']) ? preg_split("/[\s]+/", $_POST['keywords']) : null;
+    $article_keywords = isset($_POST['keywords']) ? $_POST['keywords'] : null;
     $article_content = isset($_POST['content']) ? $_POST['content'] : null;
 
-    $article = new Article("", $article_title, $_SESSION['username'], $article_keywords, $article_content);
+    $article = new Article("", $article_title, $_SESSION['username'], null, $article_content);
+    $article->set_keywords($article_keywords);
 
     $articles = ArticleService::get_instance();
     $articles->add_article($article);

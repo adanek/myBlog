@@ -44,8 +44,15 @@ class Article {
 		return $this->keywords;
 	}
 
-	public function set_keywords($kws){
-		$this->keywords = $kws;
+	public function set_keywords($keywords){
+
+        $words = preg_split("/[\s]+/", $keywords);
+
+		foreach($words as &$value){
+            $value = strtoupper($value);
+        }
+
+		$this->keywords = $words;
 	}
 	
 	public function add_keyword($param1){

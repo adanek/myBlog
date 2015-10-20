@@ -3,6 +3,8 @@
 include_once('../../app/services/session.php');
 include_once('../../app/models/article.php');
 include_once('../../app/services/ArticleService.php');
+include_once('../../app/services/SanitationService.php');
+include_once('../../app/services/HttpService.php');
 
 // Check if post or get
 $method = $_SERVER['REQUEST_METHOD'];
@@ -10,7 +12,32 @@ $method = $_SERVER['REQUEST_METHOD'];
 // POST - Save article
 if($method == "POST"){
 
+    // Parse parameters from request
+    $title = isset($_POST['title']) ? $_POST['title'] : null;
+    $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : null;
+    $content = isset($_POST['content']) ? $_POST['content'] : null;
+    $user = $_SESSION['username'];
     $id = $_POST['id'];
+
+    // Validate required parameters
+    if(!isset($title, $content, $user, $id)){
+        HttpService::return_bad_request();
+    }
+
+    // Sanitize user input
+    $title = SanitationService::convertHtml($title);
+    $keywords = SanitationService::convertHtml($keywords);
+    $content = SanitationService::convertHtml($content);
+
+    // Save article
+    $articles = ArticleService::get_instance();
+    $articles->update_article($id, $title, $keywords, $content);
+
+    // Redirect to articles
+    header('Location: /articles/index.php');
+    die();
+
+
     $srv = ArticleService::get_instance();
     $article = $srv->get_article($id);
 

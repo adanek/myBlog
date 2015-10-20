@@ -1,12 +1,11 @@
 <?php
 
-/*
+/**
  * This class provides methods to handle articles
  */
 
 class ArticleService
 {
-
     /*
      * For the sake of simplicity use the service as a singleton
      */
@@ -73,10 +72,6 @@ class ArticleService
         return $res;
     }
 
-    public function update_article($article){
-        $this->articles[$article->get_id()] = $article;
-    }
-
     /**
      * Adds an article to the blog
      *
@@ -92,6 +87,31 @@ class ArticleService
 
         $article = new Article($id, $user, $title, $kws, $content);
         $this->articles[$article->get_id()] = $article;
+    }
+
+    /**
+     * Updates an existing article
+     *
+     * @param $id string the id of the article
+     * @param $title string the title of the article
+     * @param $keyword_string string a string containing the keywords separated with space
+     * @param $content string the content of the article in block code
+     */
+    public function update_article($id, $title, $keyword_string, $content){
+
+        $article = null;
+        $article = $this->get_article($id);
+
+        if(!isset($article)){
+            HttpService::return_not_found();
+        }
+
+        $article->set_title($title);
+        $article->set_keywords($this->parse_keywords($keyword_string));
+        $article->set_text($content);
+        $article->set_change_date(time());
+
+        $this->articles[$id] = $article;
     }
 
     /**
@@ -137,6 +157,12 @@ class ArticleService
 
     }
 
+    /**
+     * Splits an string of space separated keywords into an array
+     *
+     * @param $keyword_string string the string containing the keywords separated with space
+     * @return array an array containing the keywords
+     */
     private function parse_keywords($keyword_string){
         $words = preg_split("/[\s]+/", $keyword_string);
 
@@ -146,7 +172,10 @@ class ArticleService
 
         return $words;
     }
-     
+
+    /**
+     * Create some demo data
+     */
     private function init()
     {
         $this->articles = array();

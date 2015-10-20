@@ -68,11 +68,8 @@ if($method == "GET"){
     $srv = ArticleService::get_instance();
     $article = $srv->get_article($id);
 
-    if(is_null($article)){
-        header('HTTP/1.0 404 Not Found');
-        echo "<h1>Error 404 Not Found</h1>";
-        echo "The page that you have requested could not be found.";
-        exit();
+    if(!isset($article)){
+        HttpService::return_not_found();
     }
 
     $title = $article->get_title();

@@ -14,12 +14,7 @@ while (list($art_key, $art) = each($articles)) { ?>
         <header>
             <span class="article-date"><?php echo(date('F d, Y', $art->get_creation_date())); ?></span>
 
-            <div class="title">
-                <?php echo($art->get_title()); ?>
-                <small>
-
-                </small>
-            </div>
+            <div class="title"><a href="/articles/show.php?id=<?php echo($art->get_id()); ?>"><?php echo($art->get_title()); ?></a></div>
             <div class="subtitle">
                 <span class="author"><?php echo($art->get_author()); ?></span>
                 <span>
@@ -37,7 +32,23 @@ while (list($art_key, $art) = each($articles)) { ?>
         </header>
 
         <div class="article-body">
-            <p><?php echo($art->get_text()); ?></p>
+            <p>
+                <?php
+                    if(strlen($art->get_text()) > 250) {
+
+                        // Cut the content at the last white space in the first 250 chars
+                        $text = substr($art->get_text(), 0, 250);
+                        $last = strrpos($text, ' ');
+                        $text = substr($text, 0 , $last);
+                        echo($text);
+                ?>
+                        <span class="more"><a href="/articles/show.php?id=<?php echo($art->get_id()); ?>"> ...</a></span>
+                <?php
+                    } else {
+                        echo($art->get_text());
+                    }
+                ?>
+            </p>
         </div>
 
         <footer>

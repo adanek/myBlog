@@ -78,15 +78,20 @@ class ArticleService
     }
 
     /**
-     * Adds an article from the blog
+     * Adds an article to the blog
      *
-     * @param Article $article The article to add
+     * @param $user string the name of the user
+     * @param $title string the title of the article
+     * @param $keyword_string string a string containing the keywords separated with space
+     * @param $content string the content of the article in block code
      */
-    public function add_article($article)
-    {
-        $id = count($this->articles) + 1;
-        $new = new Article("B$id", $article->get_title(), $article->get_author(), $article->get_keywords(), $article->get_text());
-        $this->articles[$new->get_id()] = $new;
+    public function add_article($user, $title, $keyword_string, $content){
+
+        $id = 'B'.(count($this->articles) + 1);
+        $kws = $this->parse_keywords($keyword_string);
+
+        $article = new Article($id, $user, $title, $kws, $content);
+        $this->articles[$article->get_id()] = $article;
     }
 
     /**
@@ -131,17 +136,24 @@ class ArticleService
     public function remove_comment($comment_id){
 
     }
+
+    private function parse_keywords($keyword_string){
+        $words = preg_split("/[\s]+/", $keyword_string);
+
+        foreach($words as &$value){
+            $value = strtoupper($value);
+        }
+
+        return $words;
+    }
      
     private function init()
     {
         $this->articles = array();
         #Testdaten
-        $article1 = new Article('B1', 'Test1', 'Pati', array('PHP', 'HTML'), 'Das ist ein unglaublich beschissener Blogeintrag');
-        $article2 = new Article('B2', 'Test2', 'Pati', array('CSS', 'JS'), 'Und hier kommt auch schon der nächste nicht ganz so beschissene Eintrag');
-        $article3 = new Article('B3', 'Test3', 'Andi', array('CSS', 'JS', 'PHP', 'HTML'), 'Andis Eintrag is ebenfalls nicht berauschend');
 
-        $this->articles[$article1->get_id()]= $article1;
-        $this->articles[$article2->get_id()]= $article2;
-        $this->articles[$article3->get_id()]= $article3;
+        $this->add_article('Pati', 'First Article', 'php html', '<div>Das ist ein unglaublich beschissener Blogeintrag</div>');
+        $this->add_article('Pati', 'Second Article', 'php html', '<div>Das ist ein unglaublich beschissener Blogeintrag</div>');
+        $this->add_article('Andi', 'Third Article', 'php html', '<div>Das ist ein unglaublich beschissener Blogeintrag</div>');
     }
 }

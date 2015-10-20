@@ -1,10 +1,3 @@
-<?php
-include_once('../../app/models/article.php');
-include_once('../../app/services/ArticleService.php');
-
-$srv = ArticleService::get_instance();
-$articles = $srv->get_all();
-?>
 <a href="/articles/create.php" class="btn">Write a new article</a>
 
 <?php

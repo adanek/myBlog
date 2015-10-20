@@ -10,20 +10,24 @@ class Article {
 	private $change_date;
 	private $text;
 
-	public function __construct($id, $title, $author, $keywords, $text){
+	public function __construct($id, $author, $title, $keywords, $content){
 		$this->id            = $id;
-		$this->title         = $title;
 		$this->author        = $author;
-		$this->keywords      = $keywords;
+        $this->title         = $title;
+        $this->keywords      = $keywords;
+        $this->text          = $content;
 		$this->creation_date = time();
-		$this->change_date = $this->creation_date;
-		$this->text          = $text;
+		$this->change_date   = $this->creation_date;
 	}
 	
 	public function get_id(){
 		return $this->id;
 	}
-	
+
+    public function set_id($param1){
+        $this->id = $param1;
+    }
+
 	public function get_title(){
 		return $this->title;
 	}
@@ -45,18 +49,7 @@ class Article {
 	}
 
 	public function set_keywords($keywords){
-
-        $words = preg_split("/[\s]+/", $keywords);
-
-		foreach($words as &$value){
-            $value = strtoupper($value);
-        }
-
-		$this->keywords = $words;
-	}
-	
-	public function add_keyword($param1){
-		array_push($this->keywords, $param1);
+		$this->keywords = $keywords;
 	}
 	
 	public function get_creation_date(){
@@ -76,6 +69,7 @@ class Article {
 	}
 	
 	public function set_text($param1){
+
 		$this->text = $param1;
 	}
 	

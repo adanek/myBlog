@@ -30,8 +30,9 @@ body > header {
     line-height: 2em;
     text-align: center;
     //background-color: #494e58;
-    background: radial-gradient(circle, #1e3e4d, #102028);
+    background: radial-gradient(circle, #1E3E91, #102028);
     color: white;
+
 }
 
 @media screen and (max-width: 500px){

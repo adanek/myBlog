@@ -13,3 +13,18 @@
 
 </article>
 
+<?php
+        foreach($comments as $comment){
+
+            ?>
+
+<article class="comment">
+    <header>
+        <span><?php echo("$comment->user wrote on ".date("F d, Y", $comment->creation_date))?></span>
+    </header>
+    <p>
+        <?php echo($comment->text);?>
+    </p>
+</article>
+
+<?php }?>

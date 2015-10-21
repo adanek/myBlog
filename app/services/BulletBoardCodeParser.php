@@ -4,6 +4,7 @@ class BulletBoardCodeParser {
 
     /**
      * Converts BB-Code to html
+     *
      * @param $text string the text to convert
      * @return mixed string the converted text
      */
@@ -35,3 +36,5 @@ class BulletBoardCodeParser {
         return $text;
     }
 }
+
+?>

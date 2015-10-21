@@ -240,3 +240,5 @@ class ArticleService {
 		return $keywords;
 	}
 }
+
+?>

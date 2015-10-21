@@ -6,3 +6,5 @@ class SanitationService
         return htmlentities($string);
     }
 }
+
+?>

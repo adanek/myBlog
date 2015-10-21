@@ -8,7 +8,7 @@ class DatabaseService
 	public function __construct(){
 		
 		$this->mysqli = new mysqli("localhost", "root", "P@ssw0rd", "webinfo", "3306");
-		 
+
 		if(!$this->mysqli){
 			HttpService::return_service_unavailable();
 		}
@@ -24,3 +24,5 @@ class DatabaseService
 
 	}
 }
+
+?>

@@ -17,4 +17,13 @@ class HttpService
         http_response_code(404);
         exit();
     }
+    
+    /**
+     * Sends a Service Unavailable Response to the client
+     */
+    static public function return_service_unavailable(){
+    	http_response_code(503);
+    	exit();
+    }
+    
 }

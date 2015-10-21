@@ -16,8 +16,8 @@ class Article {
         $this->title         = $title;
         $this->keywords      = $keywords;
         $this->text          = $content;
-		$this->creation_date = time();
-		$this->change_date   = $this->creation_date;
+        $this->creation_date = time();
+        $this->change_date   = $this->creation_date;
 	}
 	
 	public function get_id(){
@@ -54,6 +54,10 @@ class Article {
 	
 	public function get_creation_date(){
 		return $this->creation_date;
+	}
+	
+	public function set_creation_date($date){
+		$this->creation_date = $date;
 	}
 	
 	public function get_change_date(){

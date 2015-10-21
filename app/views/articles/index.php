@@ -33,12 +33,12 @@ while (list($art_key, $art) = each($articles)) { ?>
                         $text = substr($art->get_text(), 0, 250);
                         $last = strrpos($text, ' ');
                         $text = substr($text, 0 , $last);
-                        echo($text);
+                        echo(BulletBoardCodeParser::convertToHtml($text));
                 ?>
                         <span class="more"><a href="/articles/show.php?id=<?php echo($art->get_id()); ?>"> ...</a></span>
                 <?php
                     } else {
-                        echo($art->get_text());
+                        echo(BulletBoardCodeParser::convertToHtml($art->get_text()));
                     }
                 ?>
             </p>

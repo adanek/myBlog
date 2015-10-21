@@ -19,7 +19,8 @@ class BulletBoardCodeParser {
         $text =preg_replace("/\[h3\](.*)\[\/h3\]/m", "<h3>\\1</h3>", $text);
 
         // Paragraphs
-        $text = preg_replace("/^[^<](.+)$/m", "<p>\\1</p>", $text);
+        $text = preg_replace("/^([^\<].+)$/m", "<p>\\1</p>", $text);
+
 
         // Bold
         $text =  preg_replace("/\[b\](.*)\[\/b\]/Usi", "<b>\\1</b>", $text);

@@ -145,7 +145,7 @@ class ArticleService {
 
 			$query = "INSERT INTO `webinfo`.`keywords` (`article`, `keyword`) VALUES ('$id', '$val')";
 			$result = $this->sql_con->query($query);
-			
+
 		}
 	}
 

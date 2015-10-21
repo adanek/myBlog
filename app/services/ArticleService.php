@@ -3,187 +3,239 @@
 /**
  * This class provides methods to handle articles
  */
+include_once ('DatabaseService.php');
+class ArticleService {
+	/*
+	 * For the sake of simplicity use the service as a singleton
+	 */
+	private static $instance = null;
+	static public function get_instance() {
+		if (null === self::$instance) {
+			self::$instance = new self ();
+		}
 
-class ArticleService
-{
-    /*
-     * For the sake of simplicity use the service as a singleton
-     */
-    static private $instance = null;
+		return self::$instance;
+	}
+	private $articles = array ();
+	private $file = '';
+	private $sql_con = null;
+	private function __construct() {
 
-    static public function get_instance()
-    {
-        if (null === self::$instance) {
-            self::$instance = new self;
-        }
+		// get db connection
+		$db = new DatabaseService ();
+		$this->sql_con = $db->getConnection ();
 
-        return self::$instance;
-    }
+		if (! $this->sql_con) {
+			HttpService::return_service_unavailable ();
+		}
+	}
+	function __destruct() {
+		// $s = serialize($this->articles);
+		// file_put_contents($this->file, $s);
+	}
+	private function __clone() {
+	}
 
-    private $articles = array();
-    private $file = '';
+	/**
+	 * Returns all articles from the blog
+	 *
+	 * @return array<Article> Returns all articles
+	 */
+	public function get_all() {
 
-    private function __construct()
-    {
-        $this->file = realpath('../../data/articles.dat');
-        $u = file_get_contents($this->file);
-        $this->articles = unserialize($u);
+		// absteigend sortieren
+		$query = "SELECT article.id, article.author, article.title, article.creation_date, article.change_date, article.text, user.alias FROM article ";
+		$query .= "INNER JOIN user ON article.author = user.id ORDER BY article.creation_date DESC";
 
-        //$this->init();
-    }
+		// select articles
+		$result_article = $this->sql_con->query ( $query );
 
-    function __destruct()
-    {
-        $s = serialize($this->articles);
-        file_put_contents($this->file, $s);
-    }
+		$articles = array ();
 
-    private function __clone()
-    {
-    }
+		while ( $row = mysqli_fetch_assoc ( $result_article ) ) {
 
-    /**
-     * Returns all articles from the blog
-     *
-     * @return array<Article> Returns all articles
-     */
-    public function get_all()
-    {
-    	
-    	#absteigend sortieren
-    	uasort($this->articles, 'Article::compare_date_dsc');
-    	
-        return $this->articles;
-    }
+			// create new article object
+			$article = new Article ( $row ['id'], $row ['alias'], $row ['title'], $this->getKeywords ( $row ['id'] ), $row ['text'] );
+			$article->set_creation_date($row['creation_date']);
+			$article->set_change_date($row['change_date']);
+			array_push ( $articles, $article );
+		}
 
-    /**
-     * Returns the article with the given id if exists
-     * @param $id string the id of the article
-     * @return mixed Article the requested article or null
-     */
-    public function get_article($id){
+		return $articles;
+	}
 
-        $res = null;
+	/**
+	 * Returns the article with the given id if exists
+	 *
+	 * @param $id string
+	 *        	the id of the article
+	 * @return mixed Article the requested article or null
+	 */
+	public function get_article($id) {
+		$query = "SELECT article.id, article.author, article.title, article.creation_date, article.change_date, article.text, user.alias FROM article ";
+		$query .= "INNER JOIN user ON article.author = user.id WHERE article.id = " . $id;
 
-        if(isset($this->articles[$id])){
-            $res = $this->articles[$id];
-        }
+		$result_article = $this->sql_con->query ( $query );
 
-        return $res;
-    }
+		$row = mysqli_fetch_assoc ( $result_article );
 
-    /**
-     * Adds an article to the blog
-     *
-     * @param $user string the name of the user
-     * @param $title string the title of the article
-     * @param $keyword_string string a string containing the keywords separated with space
-     * @param $content string the content of the article in block code
-     */
-    public function add_article($user, $title, $keyword_string, $content){
+		$article = new Article ( $row ['id'], $row ['alias'], $row ['title'], $this->getKeywords ( $row ['id'] ), $row ['text'] );
+		$article->set_creation_date($row['creation_date']);
+		$article->set_change_date($row['change_date']);
+		return $article;
+	}
 
-        $id = 'B'.(count($this->articles) + 1);
-        $kws = $this->parse_keywords($keyword_string);
+	/**
+	 * Adds an article to the blog
+	 *
+	 * @param $user string
+	 *        	the name of the user
+	 * @param $title string
+	 *        	the title of the article
+	 * @param $keyword_string string
+	 *        	a string containing the keywords separated with space
+	 * @param $content string
+	 *        	the content of the article in block code
+	 */
+	public function add_article($user, $title, $keyword_string, $content) {
+		$id = 'B' . (count ( $this->articles ) + 1);
+		$kws = $this->parse_keywords ( $keyword_string );
 
-        $article = new Article($id, $user, $title, $kws, $content);
-        $this->articles[$article->get_id()] = $article;
+		$article = new Article ( $id, $user, $title, $kws, $content );
+		$this->articles [$article->get_id ()] = $article;
+	}
 
-    }
+	/**
+	 * Updates an existing article
+	 *
+	 * @param $id string
+	 *        	the id of the article
+	 * @param $title string
+	 *        	the title of the article
+	 * @param $keyword_string string
+	 *        	a string containing the keywords separated with space
+	 * @param $content string
+	 *        	the content of the article in block code
+	 */
+	public function update_article($id, $title, $keyword_string, $content) {
+		$query = "SELECT * FROM article WHERE id = " . $id;
+		$result = $this->sql_con->query ( $query );
 
-    /**
-     * Updates an existing article
-     *
-     * @param $id string the id of the article
-     * @param $title string the title of the article
-     * @param $keyword_string string a string containing the keywords separated with space
-     * @param $content string the content of the article in block code
-     */
-    public function update_article($id, $title, $keyword_string, $content){
+		$row = mysqli_fetch_assoc ( $result );
 
-        $article = null;
-        $article = $this->get_article($id);
+		if (! isset ( $row )) {
+			HttpService::return_not_found ();
+		}
 
-        if(!isset($article)){
-            HttpService::return_not_found();
-        }
+		$change_date = time();
 
-        $article->set_title($title);
-        $article->set_keywords($this->parse_keywords($keyword_string));
-        $article->set_text($content);
-        $article->set_change_date(time());
+		$query = "UPDATE article SET title = '$title', text = '$content', change_date = '$change_date' WHERE id = '$id'";
+		$result = $this->sql_con->query ( $query );
 
-        $this->articles[$id] = $article;
-    }
+		if (! isset ( $result )) {
+			HttpService::return_not_found ();
+		}
 
-    /**
-     * Removes an article from the blog
-     *
-     * @param string $article The id of the article to remove
-     * @return string a result string
-     */
-    public function remove_article($article)
-    {
-        $res = "Article $article not found";
+		$query = "DELETE FROM keywords WHERE article = '$id'";
+		$result = $this->sql_con->query ( $query );
 
-        if(isset($this->articles[$article])){
-            unset($this->articles[$article]);
-            $res = "Article $article deleted";
-        }
+		$keywords = $this->parse_keywords ( $keyword_string );
 
-        return $res;
-    }
+		foreach($keywords AS $val ) {
 
-    /**
-     * Returns the comments of an article
-     *
-     * @param $article_id string The id of the article
-     */
-    public function get_comments($article_id){
+			$query = "INSERT INTO `webinfo`.`keywords` (`article`, `keyword`) VALUES ('$id', '$val')";
+			$result = $this->sql_con->query($query);
+		}
+	}
 
-    }
+	/**
+	 * Removes an article from the blog
+	 *
+	 * @param string $article
+	 *        	The id of the article to remove
+	 * @return string a result string
+	 */
+	public function remove_article($article) {
+		$res = "Article $article not found";
 
-    /**
-     * Adds a comment to an existing article
-     * @param $comment Comment The comment to add
-     */
-    public function add_comment($comment){
-    // Create unique comment id here
-    }
+		if (isset ( $this->articles [$article] )) {
+			unset ( $this->articles [$article] );
+			$res = "Article $article deleted";
+		}
 
-    /**
-     * Removes a comment
-     * @param $comment_id string the id of the comment to remove
-     */
-    public function remove_comment($comment_id){
+		return $res;
+	}
 
-    }
+	/**
+	 * Returns the comments of an article
+	 *
+	 * @param $article_id string
+	 *        	The id of the article
+	 */
+	public function get_comments($article_id) {
+	}
 
-    /**
-     * Splits an string of space separated keywords into an array
-     *
-     * @param $keyword_string string the string containing the keywords separated with space
-     * @return array an array containing the keywords
-     */
-    private function parse_keywords($keyword_string){
-        $words = preg_split("/[\s]+/", $keyword_string);
+	/**
+	 * Adds a comment to an existing article
+	 *
+	 * @param $comment Comment
+	 *        	The comment to add
+	 */
+	public function add_comment($comment) {
+		// Create unique comment id here
+	}
 
-        foreach($words as &$value){
-            $value = strtoupper($value);
-        }
+	/**
+	 * Removes a comment
+	 *
+	 * @param $comment_id string
+	 *        	the id of the comment to remove
+	 */
+	public function remove_comment($comment_id) {
+	}
 
-        return $words;
-    }
+	/**
+	 * Splits an string of space separated keywords into an array
+	 *
+	 * @param $keyword_string string
+	 *        	the string containing the keywords separated with space
+	 * @return array an array containing the keywords
+	 */
+	private function parse_keywords($keyword_string) {
+		$words = preg_split ( "/[\s]+/", $keyword_string );
 
-    /**
-     * Create some demo data
-     */
-    private function init()
-    {
-        $this->articles = array();
-        #Testdaten
+		foreach ( $words as &$value ) {
+			$value = strtoupper ( $value );
+		}
 
-        $this->add_article('Pati', 'First Article', 'php html', '<div>Das ist ein unglaublich beschissener Blogeintrag</div>');
-        $this->add_article('Pati', 'Second Article', 'php html', '<div>Das ist ein unglaublich beschissener Blogeintrag</div>');
-        $this->add_article('Andi', 'Third Article', 'php html', '<div>Das ist ein unglaublich beschissener Blogeintrag</div>');
-    }
+		return $words;
+	}
+
+	/**
+	 * Create some demo data
+	 */
+	private function init() {
+		$this->articles = array ();
+		// Testdaten
+
+		$this->add_article ( 'Pati', 'First Article', 'php html', '<div>Das ist ein unglaublich beschissener Blogeintrag</div>' );
+		$this->add_article ( 'Pati', 'Second Article', 'php html', '<div>Das ist ein unglaublich beschissener Blogeintrag</div>' );
+		$this->add_article ( 'Andi', 'Third Article', 'php html', '<div>Das ist ein unglaublich beschissener Blogeintrag</div>' );
+	}
+
+	/**
+	 * get keywords from article
+	 */
+	private function getKeywords($id) {
+
+		// select keywords per article
+		$result_keywords = $this->sql_con->query ( "SELECT * FROM keywords WHERE article = " . $id );
+
+		$keywords = array ();
+
+		while ( $row_keywords = mysqli_fetch_assoc ( $result_keywords ) ) {
+			array_push ( $keywords, $row_keywords ['keyword'] );
+		}
+		return $keywords;
+	}
 }

@@ -26,6 +26,7 @@ class BulletBoardCodeParser {
         $text =  preg_replace("/\[b\](.*)\[\/b\]/Usi", "<b>\\1</b>", $text);
 
         // Italic
+
         $text =  preg_replace("/\[i\](.*)\[\/i\]/Usi", "<em>\\1</em>", $text);
 
         return $text;

@@ -87,6 +87,7 @@ class ArticleService
 
         $article = new Article($id, $user, $title, $kws, $content);
         $this->articles[$article->get_id()] = $article;
+
     }
 
     /**

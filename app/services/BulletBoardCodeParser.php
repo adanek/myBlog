@@ -10,17 +10,20 @@ class BulletBoardCodeParser {
     public static function convertToHtml($text){
 
         // h1
-        $text =preg_replace("/\[h1\](.*)\[\/h1\]/m", "<h1>\\1</h1>", $text);
+        $text = preg_replace("/\[h1\](.*)\[\/h1\]/m", "<h1>\\1</h1>", $text);
 
         // h2
-        $text =preg_replace("/\[h2\](.*)\[\/h2\]/m", "<h2>\\1</h2>", $text);
+        $text = preg_replace("/\[h2\](.*)\[\/h2\]/m", "<h2>\\1</h2>", $text);
 
         // h3
-        $text =preg_replace("/\[h3\](.*)\[\/h3\]/m", "<h3>\\1</h3>", $text);
+        $text = preg_replace("/\[h3\](.*)\[\/h3\]/m", "<h3>\\1</h3>", $text);
+
+        // url
+        $text = preg_replace("/\[url\](http.+)\[\/url\]/m", "<a href='\\1' target='_blank'>\\1</a>", $text);
+        $text = preg_replace("/\[url=(http.+)\](.+)\[\/url\]/m", "<a href='\\1' target='_blank'>\\2</a>", $text);
 
         // Paragraphs
         $text = preg_replace("/^([^\<].+)$/m", "<p>\\1</p>", $text);
-
 
         // Bold
         $text =  preg_replace("/\[b\](.*)\[\/b\]/Usi", "<b>\\1</b>", $text);

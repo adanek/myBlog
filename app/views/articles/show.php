@@ -16,7 +16,7 @@
 <section>
     <header>Comments:</header>
 
-    <?php if(AuthenticationService::can_write_article()){ ?>
+    <?php if(AuthenticationService::can_write_comment()){ ?>
     <div id="comment-add">
         <a id="btn-form-show" class="btn" href="javascript:showForm()">Leave a comment</a>
 
@@ -46,7 +46,7 @@
 
             $user = $comment->user;
             $date = date("F d, Y", $comment->creation_date);
-            $comment = $comment->text;
+            $text = $comment->text;
 
             include('../../app/views/comments/show.php');
         }

@@ -15,13 +15,25 @@ if($method == 'DELETE'){
     if(isset($post_vars['id'])){
         $id = $post_vars['id'];
 
-        if(!AuthenticationService::can_delete_article($id)){
+        $articles = ArticleService::get_instance();
+        $article = $articles->get_article($id);
+
+        // Check existence
+        if(!isset($article)){
+            HttpService::return_not_found();
+        }
+
+        // Check permission
+        if(!AuthenticationService::can_delete_article($article)){
             HttpService::return_unauthorized();
         }
 
-        ArticleService::get_instance()->remove_article($id);
+        // Delete article
+        $articles->remove_article($id);
         exit();
     }
+
+    HttpService::return_bad_request();
 }
 
 //Otherwise

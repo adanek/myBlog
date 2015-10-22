@@ -20,11 +20,6 @@ if($method == "POST"){
     $user = $_SESSION['username'];
     $id = $_POST['id'];
 
-    // Check permission
-    if(!AuthenticationService::can_delete_article($id)){
-        HttpService::return_unauthorized();
-    }
-
     // Validate required parameters
     if(!isset($title, $content, $user, $id)){
         HttpService::return_bad_request();
@@ -35,8 +30,19 @@ if($method == "POST"){
     $keywords = SanitationService::convertHtml($keywords);
     $content = SanitationService::convertHtml($content);
 
-    // Save article
+    // Check if article exists
     $articles = ArticleService::get_instance();
+    $article = $articles->get_article($id);
+    if(!isset($article)){
+        HttpService::return_not_found();
+    }
+
+    // Check permission
+    if(!AuthenticationService::can_delete_article($article)){
+        HttpService::return_unauthorized();
+    }
+
+    // Save article
     $articles->update_article($id, $title, $keywords, $content);
 
     // Redirect to articles
@@ -68,16 +74,17 @@ if($method == "GET"){
 
     $id = isset($_GET['id']) ? $_GET['id'] : null;
 
-    // Check permission
-    if(!AuthenticationService::can_delete_article($id)){
-        HttpService::return_unauthorized();
-    }
-
     $srv = ArticleService::get_instance();
     $article = $srv->get_article($id);
 
+    // Check existence
     if(!isset($article)){
         HttpService::return_not_found();
+    }
+
+    // Check permission
+    if(!AuthenticationService::can_delete_article($article)){
+        HttpService::return_unauthorized();
     }
 
     $title = $article->get_title();

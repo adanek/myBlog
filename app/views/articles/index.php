@@ -55,7 +55,7 @@ while (list($art_key, $art) = each($articles)) { ?>
                     <span>last modified on <?php echo(date('F d, Y', $art->get_change_date())); ?></span>
                 <?php } ?>
 
-                <?php if(AuthenticationService::can_edit_article($art->get_id())){ ?>
+                <?php if(AuthenticationService::can_edit_article($art)){ ?>
                 <a href="/articles/edit.php?id=<?php echo($art->get_id()) ?>">
                     <img class="icon icon-edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAA
                         eP4ixAAAC8ElEQVRoQ9Wa8ZVNMRCHf9sBFaADKkAFbAWogK2ArQAVoAKrAjpABagAHTjfO3feGbPJfcm7yb15OWf/2ZfkzZe
@@ -72,7 +72,7 @@ while (list($art_key, $art) = each($articles)) { ?>
                 </a>
                 <?php } ?>
 
-                <?php if(AuthenticationService::can_delete_article($art->get_id())){ ?>
+                <?php if(AuthenticationService::can_delete_article($art)){ ?>
                 <a href="javascript:deleteArticle('<?php echo $art->get_id(); ?>')">
                     <img class="icon icon-trash" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4
                     ixAAABp0lEQVRoQ+2ZfVHEQAzFf6cAJOAAUAA4wAGDAnAAOAAHSAAFgALAATgABTCP2c6ETtv96sfNXfLX3TTd7EtedtNkxYbIak

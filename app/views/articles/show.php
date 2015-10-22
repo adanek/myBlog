@@ -16,6 +16,7 @@
 <section>
     <header>Comments:</header>
 
+    <?php if(AuthenticationService::can_write_article()){ ?>
     <div id="comment-add">
         <a id="btn-form-show" class="btn" href="javascript:showForm()">Leave a comment</a>
 
@@ -37,6 +38,7 @@
 
         </form>
     </div>
+    <?php } ?>
 
     <div id="comments">
         <?php

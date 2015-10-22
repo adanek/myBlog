@@ -11,6 +11,14 @@ class HttpService
     }
 
     /**
+     * Sends a Unauthorized response to the client
+     */
+    public static function return_unauthorized(){
+        http_response_code(401);
+        exit();
+    }
+
+    /**
      * Sends a Not Found Response to the client
      */
     static public function return_not_found(){

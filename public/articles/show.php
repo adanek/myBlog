@@ -6,6 +6,8 @@ include_once('../../app/models/comment.php');
 include_once('../../app/services/ArticleService.php');
 include_once('../../app/services/HttpService.php');
 include_once('../../app/services/BulletBoardCodeParser.php');
+include_once('../../app/services/AuthenticationService.php');
+include_once('../../app/services/SanitationService.php');
 
 
 // Check if post or get
@@ -14,7 +16,9 @@ $method = $_SERVER['REQUEST_METHOD'];
 if($method == "POST"){
 
     // Check user role
-    // TODO: Check user permission
+    if(!AuthenticationService::can_write_comment()){
+        HttpService::return_unauthorized();
+    }
 
     // Validate data
     $user = $_SESSION["username"];

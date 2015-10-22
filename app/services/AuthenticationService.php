@@ -35,6 +35,15 @@ class AuthenticationService
     }
 
     /**
+     * Checks if the current user has the permission to write a comment to any article
+     * @return bool true if he has the permission
+     */
+    public static function can_write_comment(){
+        return isset($_SESSION['username']);
+    }
+
+
+    /**
      * login
      * @param $username string
      * @param $password string

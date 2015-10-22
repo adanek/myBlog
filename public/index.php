@@ -7,8 +7,8 @@
  */
  
 include_once('../app/services/session.php');
+include_once('../app/services/HttpService.php');
 
-header('Location: '.'/articles/index.php' );
-die();
+HttpService::redirect_to('/articles/index.php');
 ?>
 

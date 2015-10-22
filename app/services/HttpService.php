@@ -25,6 +25,15 @@ class HttpService
     	http_response_code(503);
     	exit();
     }
-    
+
+    /**
+     * Redirects the client to the given url
+     * @param $url string the target of the redirection
+     */
+    static public function redirect_to($url) {
+
+        header('Location: '.$url);
+        exit();
+    }
 }
 ?>

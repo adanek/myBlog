@@ -168,3 +168,10 @@ body > footer .credit{
 .hidden {
     display: none;
 }
+
+.btn-auth{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.5em;
+}

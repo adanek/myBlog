@@ -4,6 +4,12 @@
 $method = $_SERVER['REQUEST_METHOD'];
 
 include_once('../../app/services/session.php');
+include_once('../../app/services/AuthenticationService.php');
+include_once('../../app/services/HttpService.php');
+
+if(!AuthenticationService::can_write_article()){
+    HttpService::return_unauthorized();
+}
 
 // POST - Save article
 if($method == "POST"){
@@ -34,8 +40,7 @@ if($method == "POST"){
     $articles->add_article($user, $title, $keywords, $content);
 
     // Redirect to articles
-    header('Location: /articles/index.php');
-    die();
+    HttpService::redirect_to('/articles/index.php');
 }
 
 // GET - Show form

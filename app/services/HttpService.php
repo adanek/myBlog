@@ -23,6 +23,8 @@ class HttpService
      */
     static public function return_not_found(){
         http_response_code(404);
+        echo "<h1>Error 404 Not Found</h1>";
+        echo "The page that you have requested could not be found.";
         exit();
     }
     

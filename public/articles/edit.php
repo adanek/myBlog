@@ -5,6 +5,7 @@ include_once('../../app/models/article.php');
 include_once('../../app/services/ArticleService.php');
 include_once('../../app/services/SanitationService.php');
 include_once('../../app/services/HttpService.php');
+include_once('../../app/services/AuthenticationService.php');
 
 // Check if post or get
 $method = $_SERVER['REQUEST_METHOD'];
@@ -18,6 +19,11 @@ if($method == "POST"){
     $content = isset($_POST['content']) ? $_POST['content'] : null;
     $user = $_SESSION['username'];
     $id = $_POST['id'];
+
+    // Check permission
+    if(!AuthenticationService::can_delete_article($id)){
+        HttpService::return_unauthorized();
+    }
 
     // Validate required parameters
     if(!isset($title, $content, $user, $id)){
@@ -42,9 +48,7 @@ if($method == "POST"){
     $article = $srv->get_article($id);
 
     if(is_null($article)){
-        header('HTTP/1.0 404 Not Found');
-        echo "<h1>Error 404 Not Found</h1>";
-        echo "The page that you have requested could not be found.";
+
         exit();
     }
 
@@ -56,14 +60,18 @@ if($method == "POST"){
     $srv->update_article($article);
 
     // Redirect to articles
-    header('Location: /articles/index.php');
-    die();
+    HttpService::redirect_to('/articles/index.php');
 }
 
 // GET - Show form
 if($method == "GET"){
 
-    $id = $_GET['id'];
+    $id = isset($_GET['id']) ? $_GET['id'] : null;
+
+    // Check permission
+    if(!AuthenticationService::can_delete_article($id)){
+        HttpService::return_unauthorized();
+    }
 
     $srv = ArticleService::get_instance();
     $article = $srv->get_article($id);
@@ -83,4 +91,8 @@ if($method == "GET"){
     $page_content = '../../app/views/articles/edit.php';
 
     include_once('../../app/views/_layout.php');
+    exit();
 }
+
+// otherwise
+HttpService::return_not_found();

@@ -11,6 +11,25 @@ include_once('../../app/services/BulletBoardCodeParser.php');
 // Check if post or get
 $method = $_SERVER['REQUEST_METHOD'];
 
+if($method == "POST"){
+
+    // Check user role
+    // TODO: Check user permission
+
+    // Validate data
+    $user = $_SESSION["username"];
+    $date = date("F d, Y", time());
+    $article_id = SanitationService::convertHtml($_POST['article-id']);
+    $comment = SanitationService::convertHtml($_POST['comment']);
+
+    // Save comment
+    $articles = ArticleService::get_instance();
+    $articles->add_comment($comment);
+
+    // Return comment to client
+    include('../../app/views/comments/show.php');
+}
+
 // GET - Show form
 if($method == "GET"){
 
@@ -43,3 +62,4 @@ if($method == "GET"){
 
     include_once('../../app/views/_layout.php');
 }
+

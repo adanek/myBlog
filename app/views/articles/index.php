@@ -27,10 +27,10 @@ while (list($art_key, $art) = each($articles)) { ?>
         <div class="article-body">
             <p>
                 <?php
-                    if(strlen($art->get_text()) > 250) {
+                    if(strlen($art->get_text()) > 500) {
 
                         // Cut the content at the last white space in the first 250 chars
-                        $text = substr($art->get_text(), 0, 250);
+                        $text = substr($art->get_text(), 0, 500);
                         $last = strrpos($text, ' ');
                         $text = substr($text, 0 , $last);
                         echo(BulletBoardCodeParser::convertToHtml($text));

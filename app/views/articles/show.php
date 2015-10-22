@@ -13,6 +13,9 @@
 
 </article>
 
+<section>
+    <header>Comments:</header>
+    <a class="btn">Leave a comment</a>
 <?php
         foreach($comments as $comment){
 
@@ -28,3 +31,5 @@
 </article>
 
 <?php }?>
+
+</section>

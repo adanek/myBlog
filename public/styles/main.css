@@ -164,3 +164,7 @@ body > footer .credit{
     line-height: 20px;
     margin: 10px;
 }
+
+.hidden {
+    display: none;
+}

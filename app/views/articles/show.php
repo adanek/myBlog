@@ -15,35 +15,42 @@
 
 <section>
     <header>Comments:</header>
-    <a class="btn" onclick="showForm()">Leave a comment</a>
 
-    <form class="form-comment">
-        <div class="form-group">
-            <input type="hidden" name="article-id" value="<?php echo($article_id);?>"
-        </div>
-        <div class="form-group">
-            <label for="comment">Your comment:</label>
-            <textarea class="form-control" name="comment" id="comment" rows="10"></textarea>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Save" class="btn">
-        </div>
-    </form>
-<?php
-        foreach($comments as $comment){
+    <div id="comment-add">
+        <a id="btn-form-show" class="btn" href="javascript:showForm()">Leave a comment</a>
 
-            ?>
+        <form id="form-comment" class="hidden">
 
-<article class="comment">
-    <header>
-        <span><?php echo("$comment->user wrote on ".date("F d, Y", $comment->creation_date))?></span>
-    </header>
-    <p>
-        <?php echo($comment->text);?>
-    </p>
-</article>
+            <div class="form-group">
+                <input type="hidden" name="article-id" value="<?php echo($article_id); ?>">
+            </div>
 
-<?php }?>
+            <div class="form-group">
+                <label for="comment">Your comment:</label>
+                <textarea class="form-control" name="comment" id="comment" rows="10" autofocus></textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn">
+                <a href="javascript:hideForm()" class="btn">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+
+    <div id="comments">
+        <?php
+        foreach ($comments as $comment) {
+
+            $user = $comment->user;
+            $date = date("F d, Y", $comment->creation_date);
+            $comment = $comment->text;
+
+            include('../../app/views/comments/show.php');
+        }
+        ?>
+
+    </div>
 
 </section>
 

@@ -1,4 +1,7 @@
-<a href="/articles/create.php" class="btn">Write a new article</a>
+
+<?php if(AuthenticationService::can_write_article()) { ?>
+    <a href = "/articles/create.php" class="btn" > Write a new article </a >
+<?php } ?>
 
 <?php
 while (list($art_key, $art) = each($articles)) { ?>
@@ -52,6 +55,7 @@ while (list($art_key, $art) = each($articles)) { ?>
                     <span>last modified on <?php echo(date('F d, Y', $art->get_change_date())); ?></span>
                 <?php } ?>
 
+                <?php if(AuthenticationService::can_edit_article($art->get_id())){ ?>
                 <a href="/articles/edit.php?id=<?php echo($art->get_id()) ?>">
                     <img class="icon icon-edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAA
                         eP4ixAAAC8ElEQVRoQ9Wa8ZVNMRCHf9sBFaADKkAFbAWogK2ArQAVoAKrAjpABagAHTjfO3feGbPJfcm7yb15OWf/2ZfkzZe
@@ -66,6 +70,9 @@ while (list($art_key, $art) = each($articles)) { ?>
                         hh+G5BMDwTSC8Rvxu7nnQDSsfVz21Vs0KwApH7LvikZh2a+ZBS6RigK9dY9ZMtLQvIGSW1xUTsfJmOJdmQzRAWFFfckTDKBz
                         9qq+STmtXB5C4fzAHIcP/DaB23tX7m0YoFtGKhczBH3qtbumBL/wHfzoMog+cQikAAAAASUVORK5CYII=">
                 </a>
+                <?php } ?>
+
+                <?php if(AuthenticationService::can_delete_article($art->get_id())){ ?>
                 <a href="javascript:deleteArticle('<?php echo $art->get_id(); ?>')">
                     <img class="icon icon-trash" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4
                     ixAAABp0lEQVRoQ+2ZfVHEQAzFf6cAJOAAUAA4wAGDAnAAOAAHSAAFgALAATgABTCP2c6ETtv96sfNXfLX3TTd7EtedtNkxYbIak
@@ -75,7 +82,7 @@ while (list($art_key, $art) = each($articles)) { ?>
                     +mEV21zOcwdS6i0NaTTfGFtuw6BI6/Y1wv/ZLKl+2xffPfBgOiO1oDQruTSLnAOyMSglQLSg7X7EbNQ8V4tIs5SolAJRD0tgbB8
                     raixT4Tv0lZNmjKVAmj2JAqJa6rwwFYuoKjo1jbzoe7VAogbmUnAgc3k61Y5HJNVTc+ltTER+Ae3S5DOrL0NoAAAAAElFTkSuQmCC">
                 </a>
-
+                <?php } ?>
 
             </div>
         </footer>

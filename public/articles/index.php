@@ -5,6 +5,7 @@ include_once('../../app/models/article.php');
 include_once('../../app/services/ArticleService.php');
 include_once('../../app/services/HttpService.php');
 include_once('../../app/services/BulletBoardCodeParser.php');
+include_once('../../app/services/AuthenticationService.php');
 
 $page_title = "Articles";
 $page_content ='../../app/views/articles/index.php';

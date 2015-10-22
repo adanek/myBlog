@@ -15,7 +15,20 @@
 
 <section>
     <header>Comments:</header>
-    <a class="btn">Leave a comment</a>
+    <a class="btn" onclick="showForm()">Leave a comment</a>
+
+    <form class="form-comment">
+        <div class="form-group">
+            <input type="hidden" name="article-id" value="<?php echo($article_id);?>"
+        </div>
+        <div class="form-group">
+            <label for="comment">Your comment:</label>
+            <textarea class="form-control" name="comment" id="comment" rows="10"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn">
+        </div>
+    </form>
 <?php
         foreach($comments as $comment){
 
@@ -33,3 +46,5 @@
 <?php }?>
 
 </section>
+
+<script src="/scripts/comment.js"></script>

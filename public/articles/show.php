@@ -27,6 +27,7 @@ if($method == "GET"){
         HttpService::return_not_found();
     }
 
+    $article_id = $article->get_id();
     $title = $article->get_title();
     $keywords = $article->get_keywords();
     $author = $article->get_author();

@@ -22,7 +22,7 @@ class AuthenticationService
      * @return bool true if he has the permission
      */
     public static function can_edit_article($article_id){
-        return false;
+        return isset($_SESSION['username']);
     }
 
     /**
@@ -31,7 +31,7 @@ class AuthenticationService
      * @return bool true if he has the permission
      */
     public static function can_delete_article($article_id){
-        return false;
+        return isset($_SESSION['username']);
     }
 
     /**
@@ -48,7 +48,7 @@ class AuthenticationService
             exit();
         }
 
-        $_SESSION['username'] = $user;
+        $_SESSION['username'] = $username;
     }
 
     /**

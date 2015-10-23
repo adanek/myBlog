@@ -98,23 +98,21 @@ class ArticleService {
 	 *        	the content of the article in block code
 	 */
 	public function add_article($user, $title, $keyword_string, $content) {
-		//$id = 'B' . (count ( $this->articles ) + 1);
-		//$kws = $this->parse_keywords ( $keyword_string );
 
-		//$article = new Article ( $id, $user, $title, $kws, $content );
-		//$this->articles [$article->get_id ()] = $article;
-		
 		$time = time();
 		
 		$query  = "INSERT INTO `webinfo`.`article` (`id`, `title`, `author`, `creation_date`, `change_date`, `text`) ";
 		$query .= "VALUES (NULL, '$title', '$user', '$time', '$time', '$content')";
 		
+		//insert article
 		$this->sql_con->query($query);
 		
+		//get created id
 		$result = $this->sql_con->query("SELECT LAST_INSERT_ID()");
 		
 		$row = mysqli_fetch_assoc( $result );
 		
+		//insert keywords
 		foreach($row AS $val){
 			$this->updateKeywords($val, $keyword_string);
 		}
@@ -164,12 +162,15 @@ class ArticleService {
 	 * @return string a result string
 	 */
 	public function remove_article($article) {
-		$res = "Article $article not found";
 
-		if (isset ( $this->articles [$article] )) {
-			unset ( $this->articles [$article] );
-			$res = "Article $article deleted";
-		}
+		//first delete keywords
+		$this->deleteKeywords($article);
+		
+		//delete article
+		$query = "DELETE FROM article WHERE id = '$article'";
+		$result = $this->sql_con->query($query);
+		
+		$res = "Article $article deleted";
 
 		return $res;
 	}
@@ -252,8 +253,8 @@ class ArticleService {
 	 */	
 	private function updateKeywords($id, $keyword_string){
 		
-		$query = "DELETE FROM keywords WHERE article = '$id'";
-		$result = $this->sql_con->query ( $query );
+		//first delete keywords
+		$this->deleteKeywords($id);
 		
 		$keywords = $this->parse_keywords ( $keyword_string );
 		
@@ -261,6 +262,16 @@ class ArticleService {
 			$query = "INSERT INTO `webinfo`.`keywords` (`article`, `keyword`) VALUES ('$id', '$val')";
 			$result = $this->sql_con->query($query);
 		}		
+		
+	}
+	
+	/**
+	 * delete keywords in database
+	 */
+	private function deleteKeywords($id){
+		
+	    $query = "DELETE FROM keywords WHERE article = '$id'";
+		$result = $this->sql_con->query ( $query );
 		
 	}
 }

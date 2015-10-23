@@ -47,7 +47,6 @@ class CommentService
         }
         
         return $comments;
-
     }
 
     /**
@@ -57,14 +56,17 @@ class CommentService
      */
     public function get_comment($comment_id){
 
-    	$query = "SELECT * FROM comment WHERE id = '$comment_id'";
+        $query = "SELECT comment.id, comment.user_id, comment.text, comment.creation_date, user.alias
+                  FROM comment
+                  INNER JOIN user ON comment.user_id = user.id
+                  WHERE comment.id = $comment_id";
+
     	$result = $this->sql_con->query($query);
     	
     	$row = mysqli_fetch_assoc ( $result );
     	
-    	$comment = new Comment($row['id'], $row['user_id'], $row['text'], $row['creation_date']);
+    	$comment = new Comment($row['id'], $row['alias'], $row['text'], $row['creation_date']);
     	return $comment;
-    	
     }
 
     /**

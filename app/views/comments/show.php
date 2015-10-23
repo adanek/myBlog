@@ -9,7 +9,7 @@
 
 ?>
 
-<article class="comment">
+<article class="comment" id="comment-<?php echo($comment->comment_id); ?>">
     <header>
         <?php echo("$user wrote on $date"); ?>
     </header>

@@ -37,6 +37,22 @@ function addComment(e) {
     return false;
 }
 
+function deleteComment(comment_id){
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function(){
+
+        if(req.readyState == 4 && req.status == 200){
+
+            var elem = document.getElementById('comment-' + comment_id);
+            elem.parentNode.removeChild(elem);
+        }
+    }
+
+    req.open('DELETE', '/articles/comments.php', true);
+    req.send("comment-id=" + comment_id);
+}
+
 (function () {
     var form = document.getElementById('form-comment');
 

@@ -99,7 +99,7 @@ class AuthenticationService
         }
 
         // Check if client is the author of the comment
-        if(isset($_SESSION['username']) && ($comment->user ==$_SESSION['username'])){
+        if(isset($_SESSION['username']) && ($comment->user == $_SESSION['username'])){
             return true;
         }
 

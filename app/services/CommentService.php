@@ -86,22 +86,14 @@ class CommentService
         
         $user_id = $row['id'];
         
-        $query = "INSERT INTO `webinfo`.`comment` (`id`, `user_id`, `text`, `creation_date`, `article`) ";
-        $query.= "VALUES (NULL, '$user_id', '$text', '$date', '$article_id')";
+        $query = "INSERT INTO `webinfo`.`comment` (`user_id`, `text`, `creation_date`, `article`) ";
+        $query.= "VALUES ('$user_id', '$text', '$date', '$article_id')";
         
         $result = $this->sql_con->query($query);
-        
-        //get created id
-        $result = $this->sql_con->query("SELECT LAST_INSERT_ID()");
-        
-        $row = mysqli_fetch_assoc( $result );
-        
-        $comment = new Comment();
-        foreach( $row as $val ){
-        	$comment = get_comment($val);
-        }
+
+        $id = mysqli_insert_id($this->sql_con);
+        $comment = new Comment($id, $username, $text, $date);
         return $comment;
-        
     }
 
     /**

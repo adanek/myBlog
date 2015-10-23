@@ -31,7 +31,7 @@ function addComment(e) {
     var form = document.getElementById('form-comment');
     var data = new FormData(form);
 
-    req.open('POST', '/articles/show.php', true);
+    req.open('POST', '/articles/comments.php', true);
     req.send(data);
 
     return false;

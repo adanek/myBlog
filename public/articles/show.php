@@ -44,5 +44,9 @@ if($method == "GET"){
     $page_content = '../../app/views/articles/show.php';
 
     include_once('../../app/views/_layout.php');
+    exit();
 }
+
+// Otherwise
+HttpService::return_not_found();
 

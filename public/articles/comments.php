@@ -32,6 +32,7 @@ if($method == "POST"){
 
     // Return comment to client
     include('../../app/views/comments/show.php');
+    exit();
 }
 
 if($method == 'DELETE'){

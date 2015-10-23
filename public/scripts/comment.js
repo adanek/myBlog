@@ -17,7 +17,6 @@ function hideForm() {
 
 function addComment(e) {
     if (e.preventDefault) e.preventDefault();
-
     var req = new XMLHttpRequest();
     req.onreadystatechange = function () {
         if (req.readyState == 4 && req.status == 200) {

@@ -176,34 +176,6 @@ class ArticleService {
 	}
 
 	/**
-	 * Returns the comments of an article
-	 *
-	 * @param $article_id string
-	 *        	The id of the article
-	 */
-	public function get_comments($article_id) {
-	}
-
-	/**
-	 * Adds a comment to an existing article
-	 *
-	 * @param $comment Comment
-	 *        	The comment to add
-	 */
-	public function add_comment($comment) {
-		// Create unique comment id here
-	}
-
-	/**
-	 * Removes a comment
-	 *
-	 * @param $comment_id string
-	 *        	the id of the comment to remove
-	 */
-	public function remove_comment($comment_id) {
-	}
-
-	/**
 	 * Splits an string of space separated keywords into an array
 	 *
 	 * @param $keyword_string string

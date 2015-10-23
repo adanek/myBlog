@@ -1,22 +1,53 @@
 <?php
 
+include_once ('DatabaseService.php');
+
 /**
  * Class CommentService
  * This class provides Methods to create, query and delete Comments
  */
 class CommentService
 {
+	
+	public $sql_con = null;
+	
+	//constructor
+	public function __construct() {
+	
+		// get db connection
+		$db = new DatabaseService ();
+		$this->sql_con = $db->getConnection ();
+	
+		if (!$this->sql_con) {
+			HttpService::return_service_unavailable ();
+		}
+	}
+	
     /**
      * Returns the comments from the article with the given id
      * @param $article_id the id of the article
      * @return array <Comment> containing all comments or null if article does not exist
      */
     public function get_comments_from_article($article_id){
+    	
         $comments = array();
-        array_push($comments, new Comment(1, 'Tim', 'Men! That\'s awesome', 5555));
-        array_push($comments, new Comment(2, 'Ben', 'Best article ever', 5556));
-
+        
+        //build select query
+        $query = "SELECT comment.id, comment.user_id, comment.text, comment.creation_date, user.alias FROM comment ";
+        $query .= "INNER JOIN user ON comment.user_id = user.id WHERE comment.article = " . $article_id;
+        
+        // select comments
+        $result_comments = $this->sql_con->query( $query );
+        
+        while ( $row = mysqli_fetch_assoc ( $result_comments ) ) {
+        
+        	// create new article object
+        	$comment = new Comment ( $row ['id'], $row ['alias'], $row ['text'], $row['creation_date'] );
+        	array_push ( $comments, $comment );
+        }
+        
         return $comments;
+
     }
 
     /**
@@ -26,6 +57,14 @@ class CommentService
      */
     public function get_comment($comment_id){
 
+    	$query = "SELECT * FROM comment WHERE id = '$comment_id'";
+    	$result = $this->sql_con->query($query);
+    	
+    	$row = mysqli_fetch_assoc ( $result );
+    	
+    	$comment = new Comment($row['id'], $row['user_id'], $row['text'], $row['creation_date']);
+    	return $comment;
+    	
     }
 
     /**
@@ -35,10 +74,34 @@ class CommentService
      * @return Comment the new comment
      */
     public function add_comment_to_article($article_id, $text){
+
         $username = AuthenticationService::get_current_username();
         $date = time();
 
-        // Push to database
+        //get user id from alias
+        $query = "SELECT id FROM user WHERE alias = '$username'";
+        $result = $this->sql_con->query($query);
+        
+        $row = mysqli_fetch_assoc( $result );
+        
+        $user_id = $row['id'];
+        
+        $query = "INSERT INTO `webinfo`.`comment` (`id`, `user_id`, `text`, `creation_date`, `article`) ";
+        $query.= "VALUES (NULL, '$user_id', '$text', '$date', '$article_id')";
+        
+        $result = $this->sql_con->query($query);
+        
+        //get created id
+        $result = $this->sql_con->query("SELECT LAST_INSERT_ID()");
+        
+        $row = mysqli_fetch_assoc( $result );
+        
+        $comment = new Comment();
+        foreach( $row as $val ){
+        	$comment = get_comment($val);
+        }
+        return $comment;
+        
     }
 
     /**
@@ -47,6 +110,9 @@ class CommentService
      */
     public function delete_comment($comment_id){
 
+   	 	$query = "DELETE FROM `webinfo`.`comment` WHERE `comment`.`id` = '$comment_id'";
+    	$result = $this->sql_con->query($query);
+    	
     }
 }
 

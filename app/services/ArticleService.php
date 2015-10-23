@@ -98,11 +98,27 @@ class ArticleService {
 	 *        	the content of the article in block code
 	 */
 	public function add_article($user, $title, $keyword_string, $content) {
-		$id = 'B' . (count ( $this->articles ) + 1);
-		$kws = $this->parse_keywords ( $keyword_string );
+		//$id = 'B' . (count ( $this->articles ) + 1);
+		//$kws = $this->parse_keywords ( $keyword_string );
 
-		$article = new Article ( $id, $user, $title, $kws, $content );
-		$this->articles [$article->get_id ()] = $article;
+		//$article = new Article ( $id, $user, $title, $kws, $content );
+		//$this->articles [$article->get_id ()] = $article;
+		
+		$time = time();
+		
+		$query  = "INSERT INTO `webinfo`.`article` (`id`, `title`, `author`, `creation_date`, `change_date`, `text`) ";
+		$query .= "VALUES (NULL, '$title', '$user', '$time', '$time', '$content')";
+		
+		$this->sql_con->query($query);
+		
+		$result = $this->sql_con->query("SELECT LAST_INSERT_ID()");
+		
+		$row = mysqli_fetch_assoc( $result );
+		
+		foreach($row AS $val){
+			$this->updateKeywords($val, $keyword_string);
+		}
+		
 	}
 
 	/**
@@ -136,17 +152,8 @@ class ArticleService {
 			HttpService::return_not_found ();
 		}
 
-		$query = "DELETE FROM keywords WHERE article = '$id'";
-		$result = $this->sql_con->query ( $query );
-
-		$keywords = $this->parse_keywords ( $keyword_string );
-
-		foreach($keywords AS $val ) {
-
-			$query = "INSERT INTO `webinfo`.`keywords` (`article`, `keyword`) VALUES ('$id', '$val')";
-			$result = $this->sql_con->query($query);
-
-		}
+		$this->updateKeywords($id, $keyword_string);
+		
 	}
 
 	/**
@@ -238,6 +245,23 @@ class ArticleService {
 			array_push ( $keywords, $row_keywords ['keyword'] );
 		}
 		return $keywords;
+	}
+	
+	/**
+	 * update keywords in database
+	 */	
+	private function updateKeywords($id, $keyword_string){
+		
+		$query = "DELETE FROM keywords WHERE article = '$id'";
+		$result = $this->sql_con->query ( $query );
+		
+		$keywords = $this->parse_keywords ( $keyword_string );
+		
+		foreach($keywords AS $val ) {
+			$query = "INSERT INTO `webinfo`.`keywords` (`article`, `keyword`) VALUES ('$id', '$val')";
+			$result = $this->sql_con->query($query);
+		}		
+		
 	}
 }
 

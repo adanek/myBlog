@@ -108,15 +108,8 @@ class ArticleService {
 		$this->sql_con->query($query);
 		
 		//get created id
-		$result = $this->sql_con->query("SELECT LAST_INSERT_ID()");
-		
-		$row = mysqli_fetch_assoc( $result );
-		
-		//insert keywords
-		foreach($row AS $val){
-			$this->updateKeywords($val, $keyword_string);
-		}
-		
+        $id = mysqli_insert_id($this->sql_con);
+        $this->updateKeywords($id, $keyword_string);
 	}
 
 	/**
@@ -231,9 +224,12 @@ class ArticleService {
 		$keywords = $this->parse_keywords ( $keyword_string );
 		
 		foreach($keywords AS $val ) {
-			$query = "INSERT INTO `webinfo`.`keywords` (`article`, `keyword`) VALUES ('$id', '$val')";
-			$result = $this->sql_con->query($query);
-		}		
+
+            if(!empty($val)){
+                $query = "INSERT INTO `webinfo`.`keywords` (`article`, `keyword`) VALUES ('$id', '$val')";
+                $result = $this->sql_con->query($query);
+            }
+		}
 		
 	}
 	

@@ -23,6 +23,11 @@ if($method == "POST"){
 // GET - Show form
 if($method == "GET"){
 
+    $show_error = false;
+	if(isset($_GET) && isset($_GET['login'])){
+        $show_error = true;
+    }
+
 	$page_title = "Login";
 	$page_content = '../app/views/login.php';
 	include_once('../app/views/_layout.php');

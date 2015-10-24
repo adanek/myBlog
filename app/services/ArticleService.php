@@ -100,9 +100,10 @@ class ArticleService {
 	public function add_article($user, $title, $keyword_string, $content) {
 
 		$time = time();
+		$user_id = AuthenticationService::get_current_user_id();
 		
 		$query  = "INSERT INTO `webinfo`.`article` (`id`, `title`, `author`, `creation_date`, `change_date`, `text`) ";
-		$query .= "VALUES (NULL, '$title', '$user', '$time', '$time', '$content')";
+		$query .= "VALUES (NULL, '$title', '$user_id', '$time', '$time', '$content')";
 		
 		//insert article
 		$this->sql_con->query($query);

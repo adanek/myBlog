@@ -1,6 +1,12 @@
 <div class="outer">
     <form action="/login.php" method="POST">
 
+        <?php if($show_error){?>
+        <div class="form-group alert alert-danger">
+            <strong>Login failed</strong>
+        </div>
+        <?php } ?>
+
         <div class="form-group">
             <label for="username">Username: </label>
             <input type="text" id="username" name="username" class="form-control" autofocus required/>

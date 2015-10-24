@@ -142,12 +142,12 @@ class AuthenticationService
     	
     	//login data correct?
     	if(!isset($row)){
-    		HttpService::return_unauthorized();
-			exit();
-    	}
+    		HttpService::redirect_to('/login.php?login=fail');
+        }
     	
     	//add alias to session
     	$_SESSION['username'] = $row['alias'];
+        $_SESSION['user_id'] = $row['id'];
     	
     	$roles = array();
     	
@@ -191,5 +191,19 @@ class AuthenticationService
         }
 
         return $name;
+    }
+
+    /**
+     * Returns the id of the current user
+     * @return string|null the id of the current user
+     */
+    public static function get_current_user_id(){
+
+        $id = null;
+        if(isset($_SESSION) && isset($_SESSION['user_id'])){
+            $id = $_SESSION['user_id'];
+        }
+
+        return $id;
     }
 }

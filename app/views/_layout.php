@@ -8,7 +8,7 @@
         } ?></title>
     <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/styles/main.css"/>
+    <link rel="stylesheet" href="/styles/loader.css"/>
 </head>
 
 <body>

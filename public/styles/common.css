@@ -1,0 +1,39 @@
+.hidden {
+    display: none;
+}
+
+.btn {
+    border: 1px solid darkgray;
+    display: inline-block;
+    padding: 0.4em 1em;
+    border-radius: 0.25em;
+    box-sizing: content-box;
+    font: inherit;
+    font-size: 0.8333em;
+}
+
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.label {
+    display: inline-block;
+    padding: 0.2em 1em;
+    margin: 0 0.2em;
+    color: white;
+    font-size: 0.6em;
+    background-color: #337ab7;
+    border: 1px solid #337ab7;
+    border-radius: 0.3em;
+}

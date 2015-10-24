@@ -1,26 +1,19 @@
-html, body, header, nav, aside, footer {
-    display: block;
-    margin: 0;
-    padding: 0;
-    border: none;
-}
+/* Fonts */
 
-a,
-a:visited{
-    text-decoration: none;
-    color: inherit;
-}
-
-html {
-    position: relative;
-    min-height: 100%;
+body {
     font-family: 'Slabo 27px', serif;
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
 }
 
-body{
+/* Page layout */
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body{
     margin-bottom: 60px;
 }
 
@@ -29,10 +22,9 @@ body > header {
     font-size: 2em;
     line-height: 2em;
     text-align: center;
-    //background-color: #494e58;
+    background-color: #494e58;
     background: radial-gradient(circle, #1E3E91, #102028);
     color: white;
-
 }
 
 @media screen and (max-width: 500px){
@@ -41,14 +33,7 @@ body > header {
     }
 }
 
-body > header a ,
-body > header a:visited{
-    text-decoration: none;
-    color: whitesmoke;
-    display: block;
-}
-
-.content{
+main {
     margin: 0 auto;
     padding-top: 2em;
     width: 90%;
@@ -87,46 +72,9 @@ article{
 	color: #aaa;
 }
 
-.label {
-    display: inline-block;
-    padding: 0.2em 1em;
-    margin: 0 0.2em;
-    color: white;
-    font-size: 0.6em;
-    background-color: #337ab7;
-    border: 1px solid #337ab7;
-    border-radius: 0.3em;
-}
-
 #article-form {
 	width:	80%;
 	margin:	0 auto;
-		
-}
-
-.form-group {
-	margin-bottom:	1em;
-}
-
-.form-control {
-    display: block;
-    width: 96%;
-    padding: 0.5em 2%;
-    border: 1px solid darkgray;
-    border-radius: 0.3em;
-}
-form label {
-    font-size: 0.8em;
-}
-
-.btn {
-    border: 1px solid darkgray;
-    display: inline-block;
-    padding: 0.4em 1em;
-    border-radius: 0.25em;
-    box-sizing: content-box;
-    font: inherit;
-    font-size: 0.8333em;
 }
 
 article footer {
@@ -165,13 +113,18 @@ body > footer .credit{
     margin: 10px;
 }
 
-.hidden {
-    display: none;
-}
+
 
 .btn-auth{
     position: absolute;
     top: 0;
-    right: 0;
+    right: 1em;
     font-size: 0.5em;
+}
+
+
+a,
+a:visited{
+    text-decoration: none;
+    color: inherit;
 }

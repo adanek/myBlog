@@ -6,8 +6,10 @@
  * This class provides functionality to authenticate a user
  * and provide information about his permissions
  */
+include_once('DatabaseService.php');
 class AuthenticationService
 {
+	
     /**
      * Checks if the current user has the permission to write an article
      * @return bool true if he has the permission
@@ -113,39 +115,58 @@ class AuthenticationService
      */
     public static function login($username, $password){
 
-        // Todo: Implement user/password check
-        // If successful then add all roles to the array roles in the current session
-        // Set user alias as in session['username']
         // Delete Mocking behavior
 
-        // Mocking behavior begin
+    	// get db connection
+    	$db = new DatabaseService ();
+    	$sql_con = $db->getConnection();
+    	
+    	//connection failed
+    	if (!$sql_con) {
+    		HttpService::return_service_unavailable();
+    	}
+    	
+    	//get hash algos
+    	$algos = hash_algos();
+    	
+    	//take the 3rd algo
+    	$algo = $algos[2];
+    	
+    	$pw_hash = hash($algo, $password);
 
-        if(is_null($username)){
-            header('HTTP/1.0 404 Not Found');
-            echo "<h1>Error 404 Not Found</h1>";
-            echo "The page that you have requested could not be found.";
-            exit();
-        }
-
-        $roles = array();
-
-        if($username == 'Andi'){
-
-            array_push($roles, 'author');
-        }
-
-        if($username == 'Pati'){
-            array_push($roles, 'admin');
-        }
-
-        if($username == 'Tim'){
-            array_push($roles, 'user');
-        }
-
-        $_SESSION['roles'] = $roles;
-        $_SESSION['username'] = $username;
-
-        // Mocking behavior end
+    	//get user from db
+    	$query = "SELECT * FROM user WHERE alias = '$username' AND password = '$pw_hash'";
+    	$result = $sql_con->query($query);
+    	
+    	$row = mysqli_fetch_assoc($result);
+    	
+    	//login data correct?
+    	if(!isset($row)){
+    		HttpService::return_unauthorized();
+			exit();
+    	}
+    	
+    	//add alias to session
+    	$_SESSION['username'] = $row['alias'];
+    	
+    	$roles = array();
+    	
+    	//add user role
+    	switch($row['role']){
+    		case 1:
+    			array_push($roles, 'admin');
+    			break;
+    		case 2:
+    			array_push($roles, 'author');	
+    			break;
+    		case 3:
+    			array_push($roles, 'user');
+    			break;
+    	}
+    	
+    	//add roles to session
+    	$_SESSION['roles'] = $roles;
+    	
     }
 
     /**

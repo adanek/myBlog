@@ -4,12 +4,12 @@
 
 .btn {
     border: 1px solid darkgray;
-    display: inline-block;
-    padding: 0.4em 1em;
     border-radius: 0.25em;
     box-sizing: content-box;
+    display: inline-block;
     font: inherit;
     font-size: 0.8333em;
+    padding: 0.75em 1em;
 }
 
 
@@ -28,12 +28,29 @@
 }
 
 .label {
-    display: inline-block;
-    padding: 0.2em 1em;
-    margin: 0 0.2em;
-    color: white;
-    font-size: 0.6em;
     background-color: #337ab7;
     border: 1px solid #337ab7;
     border-radius: 0.3em;
+    color: white;
+    display: inline-block;
+    font-size: 0.6em;
+    margin: 0 0.2em;
+    padding: 0.2em 1em;
+    vertical-align: bottom;
+}
+
+.clearfix:after {
+    content: '';
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0px;
+}
+
+em {
+    font-style: inherit;
+}
+
+b {
+    font-weight: bold;
 }

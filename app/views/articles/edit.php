@@ -25,10 +25,11 @@
     </div>
     <div class="form-group">
         <label for="article_content">Content:</label>
-        <textarea id="article_content" name="content" rows="10" class="form-control" required><?php echo($content);?></textarea>
+        <textarea id="article_content" name="content" rows="30" class="form-control" required><?php echo($content);?></textarea>
     </div>
     <div class="form-group">
         <input type="submit" class="btn" value="Save">
         <a href="/articles/index.php" class="btn">Cancel</a>
     </div>
 </form>
+

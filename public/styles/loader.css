@@ -9,3 +9,9 @@
 
 /* Modules */
 @import "modules/forms.css";
+@import "modules/article.css";
+@import "modules/comment.css";
+
+/* Pages */
+@import "pages/article_index.css";
+@import "pages/article_details.css";

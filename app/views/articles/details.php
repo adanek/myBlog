@@ -1,6 +1,6 @@
 <a class="btn" href="/articles/index.php">Back to list</a>
 
-<article>
+<article class="article-details">
 
     <header>
         <div class="title"><?php echo($title); ?></div>
@@ -13,7 +13,7 @@
 
 </article>
 
-<section>
+<section class="article-details">
     <header>Comments:</header>
 
     <?php if(AuthenticationService::can_write_comment()){ ?>

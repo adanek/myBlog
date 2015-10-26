@@ -10,7 +10,7 @@ while (list($art_key, $art) = each($articles)) { ?>
         <header>
             <span class="article-date"><?php echo(date('F d, Y', $art->get_creation_date())); ?></span>
 
-            <div class="title"><a href="/articles/show.php?id=<?php echo($art->get_id()); ?>"><?php echo($art->get_title()); ?></a></div>
+            <div class="title"><a href="/articles/details.php?id=<?php echo($art->get_id()); ?>"><?php echo($art->get_title()); ?></a></div>
             <div class="subtitle">
                 <span class="author"><?php echo($art->get_author()); ?></span>
                 <span>
@@ -27,7 +27,7 @@ while (list($art_key, $art) = each($articles)) { ?>
             </div>
         </header>
 
-        <div class="article-body">
+        <div class="content">
             <p>
                 <?php
                     if(strlen($art->get_text()) > 500) {
@@ -38,7 +38,7 @@ while (list($art_key, $art) = each($articles)) { ?>
                         $text = substr($text, 0 , $last);
                         echo(BulletBoardCodeParser::convertToHtml($text));
                 ?>
-                        <span class="more"><a href="/articles/show.php?id=<?php echo($art->get_id()); ?>"> ...</a></span>
+                        <span class="more"><a href="/articles/details.php?id=<?php echo($art->get_id()); ?>"> ...</a></span>
                 <?php
                     } else {
                         echo(BulletBoardCodeParser::convertToHtml($art->get_text()));

@@ -41,7 +41,7 @@ if($method == "GET"){
     $comments = $commentsSrv->get_comments_from_article($article_id);
 
     $page_title = "Article $id";
-    $page_content = '../../app/views/articles/show.php';
+    $page_content = '../../app/views/articles/details.php';
 
     include_once('../../app/views/_layout.php');
     exit();

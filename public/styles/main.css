@@ -40,53 +40,12 @@ main {
     max-width: 960px;
 }
 
-article{
-	margin-top: 2em;
-    border-bottom: 1px solid lightgray;
-}
-
-.icon-trash{
-    width: 2em;
-}
-
-.icon-edit {
-    width: 1.5em;
-}
-
-
-.title {
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-.title small {
-	font-size:	0.40em;
-}
-
-.author {
-    color: #258897;
-}
-
-.article-date {
-	font-size: 0.75em;
-	color: #aaa;
-}
 
 #article-form {
 	width:	80%;
 	margin:	0 auto;
 }
 
-article footer {
-    text-align: right;
-}
-
-article footer span {
-    font-size: 0.8em;
-    color: #aaa;
-    display: inline-block;
-    margin-right: 1em;
-}
 
 .outer {
     position: absolute;
@@ -113,15 +72,12 @@ body > footer .credit{
     margin: 10px;
 }
 
-
-
 .btn-auth{
     position: absolute;
     top: 0;
     right: 1em;
     font-size: 0.5em;
 }
-
 
 a,
 a:visited{

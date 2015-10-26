@@ -12,6 +12,9 @@ function hideForm() {
 
     var btn = document.getElementById('btn-form-show');
     btn.classList.remove('hidden');
+
+    var text = document.getElementById('comment');
+    text.value = '';
 }
 
 

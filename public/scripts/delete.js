@@ -8,10 +8,9 @@ function deleteArticle (id){
             console.log('Article deleted');
         }
 
-        window.setTimeout(function(){window.location = "/articles/index.php";}, 250);
+        window.setTimeout(function(){window.location = "/articles/";}, 250);
     };
 
-    req.open("DELETE", "/articles/delete.php", true);
-    req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    req.send("id="+ id);
+    req.open("DELETE", "/articles/"+id, true);
+    req.send();
 }

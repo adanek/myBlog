@@ -14,6 +14,34 @@ include_once('../../app/services/CommentService.php');
 // Check if post or get
 $method = $_SERVER['REQUEST_METHOD'];
 
+if($method == 'DELETE'){
+
+    parse_str($_SERVER['QUERY_STRING'], $post_vars);
+
+    if(isset($post_vars['id'])){
+        $id = $post_vars['id'];
+
+        $articles = ArticleService::get_instance();
+        $article = $articles->get_article($id);
+
+        // Check existence
+        if(!isset($article)){
+            HttpService::return_not_found();
+        }
+
+        // Check permission
+        if(!AuthenticationService::can_delete_article($article)){
+            HttpService::return_unauthorized();
+        }
+
+        // Delete article
+        $articles->remove_article($id);
+        exit();
+    }
+
+    HttpService::return_bad_request();
+}
+
 // GET - Show form
 if($method == "GET"){
 

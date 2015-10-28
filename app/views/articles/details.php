@@ -1,4 +1,4 @@
-<a class="btn" href="/articles/index.php">Back to list</a>
+<a class="btn" href="/articles/">Back to list</a>
 
 <article class="article-details">
 

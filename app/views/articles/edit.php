@@ -29,7 +29,7 @@
     </div>
     <div class="form-group">
         <input type="submit" class="btn" value="Save">
-        <a href="/articles/index.php" class="btn">Cancel</a>
+        <a href="/articles/" class="btn">Cancel</a>
     </div>
 </form>
 

@@ -20,6 +20,8 @@ function hideForm() {
 
 function addComment(e) {
     if (e.preventDefault) e.preventDefault();
+
+    var aid = document.getElementById('article-id').value;
     var req = new XMLHttpRequest();
     req.onreadystatechange = function () {
         if (req.readyState == 4 && req.status == 200) {
@@ -34,29 +36,33 @@ function addComment(e) {
     var form = document.getElementById('form-comment');
     var data = new FormData(form);
 
-    req.open('POST', '/articles/comments.php', true);
+    req.open('POST', '/articles/' + aid + '/comments/new', true);
     req.send(data);
 
     return false;
 }
 
-function deleteComment(comment_id){
+function deleteComment(comment_id) {
+
+    var aid = document.getElementById('article-id').value;
 
     var req = new XMLHttpRequest();
-    req.onreadystatechange = function(){
+    req.onreadystatechange = function () {
 
-        if(req.readyState == 4 && req.status == 200){
+        if (req.readyState == 4 && req.status == 200) {
 
             var elem = document.getElementById('comment-' + comment_id);
             elem.parentNode.removeChild(elem);
         }
     }
 
-    req.open('DELETE', '/articles/comments.php', true);
-    req.send("comment-id=" + comment_id);
+    req.open('DELETE', '/articles/' + aid + '/comments/' + comment_id, true);
+    req.send();
 }
 
 (function () {
+
+
     var form = document.getElementById('form-comment');
 
     if (form.attachEvent) {

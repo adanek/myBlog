@@ -23,7 +23,7 @@
         <form id="form-comment" class="hidden">
 
             <div class="form-group">
-                <input type="hidden" name="article-id" value="<?php echo($article_id); ?>">
+                <input type="hidden" name="article-id" id="article-id" value="<?php echo($article_id); ?>">
             </div>
 
             <div class="form-group">

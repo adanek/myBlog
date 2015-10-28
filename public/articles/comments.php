@@ -10,10 +10,10 @@ include_once('../../app/models/comment.php');
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-if($method == "POST"){
+if ($method == "POST") {
 
     // Check user role
-    if(!AuthenticationService::can_write_comment()){
+    if (!AuthenticationService::can_write_comment()) {
         HttpService::return_unauthorized();
     }
 
@@ -35,30 +35,30 @@ if($method == "POST"){
     exit();
 }
 
-if($method == 'DELETE'){
+if ($method == 'DELETE') {
 
     // Get form data
-    parse_str(file_get_contents("php://input"), $post_vars);
+    parse_str($_SERVER['QUERY_STRING'], $post_vars);
 
-    if(isset($post_vars['comment-id'])){
+    if (isset($post_vars['cid'])) {
 
-        $comment_id = $post_vars['comment-id'];
+        $comment_id = $post_vars['cid'];
         $comments = new CommentService();
         $comment = $comments->get_comment($comment_id);
 
         // Check existence
-        if(!isset($comment)){
+        if (!isset($comment)) {
             HttpService::return_not_found();
         }
 
         // Check permission
-        if(!AuthenticationService::can_delete_comment($comment)){
+        if (!AuthenticationService::can_delete_comment($comment)) {
             HttpService::return_unauthorized();
         }
 
         // Delete article
         $comments->delete_comment($comment_id);
-        exit();
+        HttpService::return_no_content();
     }
 
     HttpService::return_bad_request();

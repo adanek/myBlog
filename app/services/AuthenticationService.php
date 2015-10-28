@@ -142,7 +142,7 @@ class AuthenticationService
     	
     	//login data correct?
     	if(!isset($row)){
-    		HttpService::redirect_to('/login.php?login=fail');
+    		HttpService::redirect_to('/login/fail');
         }
     	
     	//add alias to session

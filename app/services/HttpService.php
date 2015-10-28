@@ -37,6 +37,15 @@ class HttpService
     }
 
     /**
+     * Sends a No Content Response to the client
+     */
+    static public function return_no_content(){
+        http_response_code(204);
+        exit();
+    }
+
+
+    /**
      * Redirects the client to the given url
      * @param $url string the target of the redirection
      */

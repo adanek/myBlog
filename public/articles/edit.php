@@ -13,12 +13,14 @@ $method = $_SERVER['REQUEST_METHOD'];
 // POST - Save article
 if($method == "POST"){
 
+    parse_str($_SERVER['QUERY_STRING'], $post_vars);
+
     // Parse parameters from request
     $title = isset($_POST['title']) ? $_POST['title'] : null;
     $keywords = isset($_POST['keywords']) ? $_POST['keywords'] : null;
     $content = isset($_POST['content']) ? $_POST['content'] : null;
     $user = $_SESSION['username'];
-    $id = $_POST['id'];
+    $id = $post_vars['id'];
 
     // Validate required parameters
     if(!isset($title, $content, $user, $id)){
@@ -94,7 +96,7 @@ if($method == "GET"){
     $date = date('F d, Y', $article->get_creation_date());
 
     $page_title = "Edit Article";
-    $form_action = '/articles/edit.php';
+    $form_action = "/articles/$id/edit";
     $page_content = '../../app/views/articles/edit.php';
 
     include_once('../../app/views/_layout.php');

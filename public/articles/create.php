@@ -47,7 +47,7 @@ if($method == "POST"){
 if($method == "GET"){
 
     $page_title = "New Article";
-    $form_action = '/articles/create.php';
+    $form_action = '/articles/new';
 
     $id = '';
     $title = '';

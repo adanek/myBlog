@@ -36,7 +36,7 @@ if($method == 'DELETE'){
 
         // Delete article
         $articles->remove_article($id);
-        exit();
+        HttpService::return_no_content();
     }
 
     HttpService::return_bad_request();

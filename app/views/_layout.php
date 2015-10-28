@@ -17,9 +17,9 @@
     <a href="/">Welcome to myBlog.com</a>
 
     <?php if (isset($_SESSION['username'])) { ?>
-        <a href="/logout.php" class="btn-auth">logout</a>
+        <a href="/logout" class="btn-auth">logout</a>
     <?php } else { ?>
-        <a href="/login.php" class="btn-auth">login</a>
+        <a href="/login" class="btn-auth">login</a>
     <?php } ?>
 
 </header>

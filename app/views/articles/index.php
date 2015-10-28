@@ -56,7 +56,7 @@ while (list($art_key, $art) = each($articles)) { ?>
                 <?php } ?>
 
                 <?php if(AuthenticationService::can_edit_article($art)){ ?>
-                <a href="/articles/edit.php?id=<?php echo($art->get_id()) ?>">
+                <a href="/articles/<?php echo($art->get_id()) ?>/edit">
                     <img class="icon icon-edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAA
                         eP4ixAAAC8ElEQVRoQ9Wa8ZVNMRCHf9sBFaADKkAFbAWogK2ArQAVoAKrAjpABagAHTjfO3feGbPJfcm7yb15OWf/2ZfkzZe
                         Z32SSvDON125IeiTptqQ/kj5J+nnIzLNDHVb+/K6kz5KA8e2FpLdztowEkoMw+99LepaDGQWEMPqa8ES0OwszCggGY+STglB

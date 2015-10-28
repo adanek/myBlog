@@ -1,5 +1,5 @@
 <div class="outer">
-    <form action="/login.php" method="POST">
+    <form action="/login" method="POST">
 
         <?php if($show_error){?>
         <div class="form-group alert alert-danger">

@@ -4,7 +4,7 @@ function deleteArticle (id){
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function(){
-        if(req.readyState == 4 && req.status== 200){
+        if(req.readyState == 4 && req.status== 204){
             console.log('Article deleted');
         }
 

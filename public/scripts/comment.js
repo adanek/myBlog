@@ -49,7 +49,7 @@ function deleteComment(comment_id) {
     var req = new XMLHttpRequest();
     req.onreadystatechange = function () {
 
-        if (req.readyState == 4 && req.status == 200) {
+        if (req.readyState == 4 && req.status == 204) {
 
             var elem = document.getElementById('comment-' + comment_id);
             elem.parentNode.removeChild(elem);

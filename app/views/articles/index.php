@@ -1,6 +1,6 @@
 
 <?php if(AuthenticationService::can_write_article()) { ?>
-    <a href = "/articles/create.php" class="btn" > Write a new article </a >
+    <a href = "/articles/new" class="btn" > Write a new article </a >
 <?php } ?>
 
 <?php

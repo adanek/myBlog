@@ -66,7 +66,7 @@ if($method == "POST"){
     $srv->update_article($article);
 
     // Redirect to articles
-    HttpService::redirect_to('/articles/index.php');
+    HttpService::redirect_to('/articles/');
 }
 
 // GET - Show form

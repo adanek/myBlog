@@ -9,6 +9,6 @@
 include_once('../app/services/session.php');
 include_once('../app/services/HttpService.php');
 
-HttpService::redirect_to('/articles/index.php');
+HttpService::redirect_to('/articles/');
 ?>
 

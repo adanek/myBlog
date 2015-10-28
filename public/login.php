@@ -17,7 +17,7 @@ if($method == "POST"){
 	AuthenticationService::login($user, $password);
 
 	// Redirect to articles
-    HttpService::redirect_to('/articles/index.php');
+    HttpService::redirect_to('/articles/');
 }
 
 // GET - Show form

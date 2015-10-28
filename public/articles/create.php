@@ -40,7 +40,7 @@ if($method == "POST"){
     $articles->add_article($user, $title, $keywords, $content);
 
     // Redirect to articles
-    HttpService::redirect_to('/articles/index.php');
+    HttpService::redirect_to('/articles/');
 }
 
 // GET - Show form
